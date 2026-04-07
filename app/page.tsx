@@ -290,6 +290,23 @@ export default function LandingPage() {
           </div>
 
           <Link
+            href="/analyzer"
+            style={{
+              background: "rgba(99,102,241,0.1)",
+              border: "1px solid rgba(99,102,241,0.3)",
+              borderRadius: 8,
+              padding: "6px 14px",
+              color: "#818cf8",
+              fontSize: 13,
+              textDecoration: "none",
+              transition: "border-color 0.2s",
+              marginRight: 8,
+            }}
+          >
+            Code Analyzer
+          </Link>
+
+          <Link
             href="/sign-in"
             style={{
               background: "transparent",

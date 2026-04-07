@@ -1,5 +1,14 @@
 {
-  "node": {},
+  "node": {
+    "9900462f89cbb04e0be93da018b8d5dfa2e239c3": {
+      "workers": {
+        "app/analyzer/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22Z%3A%5C%5COPSCORD%20NEW%5C%5Capp%5C%5Cactions%5C%5CanalyzeCode.ts%22%2C%5B%22analyzeCode%22%5D%5D%5D&__client_imported__=true!"
+      },
+      "layer": {
+        "app/analyzer/page": "action-browser"
+      }
+    }
+  },
   "edge": {},
-  "encryptionKey": "JB9eCwMk/tE7WilLlhkB3kRScyjhTt8DeRC7iTCbVms="
+  "encryptionKey": "vEZEMlePoF8ftmTMxinDanw1wmKATNz2/LQl1rTZI+c="
 }

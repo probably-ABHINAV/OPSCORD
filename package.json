@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "@stackframe/stack": "^2.7.29",
     "framer-motion": "^11.18.0",
     "lucide-react": "^0.468.0",
