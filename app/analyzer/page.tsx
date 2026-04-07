@@ -58,12 +58,8 @@ export default function AnalyzerPage() {
       } else {
         setFixError(res.error || "Unknown error creating PR");
       }
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-          setFixError(error.message);
-      } else {
-          setFixError(String(error));
-      }
+    } catch (e: any) {
+      setFixError(e.message || String(e));
     } finally {
       setFixing(false);
     }
@@ -85,9 +81,8 @@ export default function AnalyzerPage() {
       } else {
         setChatHistory(prev => [...prev, { role: "model", content: `Error: ${res.error}` }]);
       }
-    } catch (error: unknown) {
-       const errMsg = error instanceof Error ? error.message : String(error);
-       setChatHistory(prev => [...prev, { role: "model", content: `Error: ${errMsg}` }]);
+    } catch (e: any) {
+       setChatHistory(prev => [...prev, { role: "model", content: `Error: ${e.message}` }]);
     } finally {
       setChatting(false);
     }
@@ -185,7 +180,7 @@ export default function AnalyzerPage() {
                 <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
                    <div style={{ background: "var(--bg-card)", border: "1px solid var(--border)", borderRadius: 12, overflow: "hidden" }}>
                     <div style={{ background: "rgba(0,0,0,0.4)", padding: "12px 16px", borderBottom: "1px solid var(--border)", fontFamily: "var(--font-space-mono)", fontSize: 12, color: "var(--muted)" }}>
-                      {"// Identified Code Context"}
+                      // Identified Wrong Code Snippet
                     </div>
                     <div style={{ padding: 24, overflowX: "auto" }}>
                       <pre style={{ margin: 0, color: "#f1f5f9", fontSize: 14 }}>
@@ -216,7 +211,7 @@ export default function AnalyzerPage() {
                    {/* Diffs */}
                    <div style={{ background: "var(--bg-card)", border: "1px solid var(--border)", borderRadius: 12, overflow: "hidden" }}>
                     <div style={{ background: "rgba(0,0,0,0.4)", padding: "12px 16px", borderBottom: "1px solid var(--border)", fontFamily: "var(--font-space-mono)", fontSize: 12, color: "var(--muted)" }}>
-                      {"// Suggested Fix Diff"}
+                      // Suggested Fix Diff
                     </div>
                     <div style={{ padding: 24, overflowX: "auto" }}>
                       <pre style={{ margin: 0, color: "#10b981", fontSize: 13, lineHeight: 1.5 }}>
@@ -228,7 +223,7 @@ export default function AnalyzerPage() {
                    {result.data?.suggestedTestCode && (
                      <div style={{ background: "var(--bg-card)", border: "1px solid var(--border)", borderRadius: 12, overflow: "hidden" }}>
                         <div style={{ background: "rgba(0,0,0,0.4)", padding: "12px 16px", borderBottom: "1px solid var(--border)", fontFamily: "var(--font-space-mono)", fontSize: 12, color: "var(--muted)" }}>
-                          {`// Generated Unit Test (${result.data.suggestedTestFileName})`}
+                          // Generated Unit Test ({result.data.suggestedTestFileName})
                         </div>
                         <div style={{ padding: 24, overflowX: "auto" }}>
                           <pre style={{ margin: 0, color: "#93c5fd", fontSize: 13, lineHeight: 1.5 }}>
@@ -331,7 +326,7 @@ export default function AnalyzerPage() {
                   {chatOpen && (
                     <div style={{ background: "var(--bg-card)", border: "1px solid rgba(139,92,246,0.5)", borderRadius: 12, display: "flex", flexDirection: "column", height: 400 }}>
                       <div style={{ padding: "12px 16px", borderBottom: "1px solid var(--border)", background: "rgba(139,92,246,0.1)", fontSize: 12, fontFamily: "var(--font-space-mono)", color: "#c4b5fd" }}>
-                        {"// PAIR PROGRAMMER TERMINAL"}
+                        // PAIR PROGRAMMER TERMINAL
                       </div>
                       <div style={{ flex: 1, padding: 16, overflowY: "auto", display: "flex", flexDirection: "column", gap: 12 }}>
                         {chatHistory.length === 0 && (

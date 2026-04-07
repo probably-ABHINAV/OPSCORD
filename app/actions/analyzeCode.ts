@@ -80,7 +80,7 @@ export async function analyzeCode(githubUrl: string): Promise<AnalysisResult> {
         const historyRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/commits?per_page=3`, { headers });
         if (historyRes.ok) {
            const historyJson = await historyRes.json();
-           commitHistoryContext = historyJson.map((c: { commit: { message: string, author: { date: string } } }) => `- ${c.commit.message} (${c.commit.author.date})`).join("\n");
+           commitHistoryContext = historyJson.map((c: any) => `- ${c.commit.message} (${c.commit.author.date})`).join("\n");
         }
 
         // 2. Fetch repo tree
@@ -89,7 +89,7 @@ export async function analyzeCode(githubUrl: string): Promise<AnalysisResult> {
         const treeJson = await treeRes.json();
 
         // 2.5 Grab package.json if it exists
-        const packageJsonFile = treeJson.tree?.find((f: { path: string }) => f.path === "package.json");
+        const packageJsonFile = treeJson.tree?.find((f: any) => f.path === "package.json");
         if (packageJsonFile) {
             const pkgRes = await fetch(`https://raw.githubusercontent.com/${owner}/${repo}/${defaultBranch}/package.json`, { headers });
             if (pkgRes.ok) packageJsonContext = await pkgRes.text();
@@ -97,7 +97,7 @@ export async function analyzeCode(githubUrl: string): Promise<AnalysisResult> {
 
         // 3. Filter interesting files (get top 5 code files to keep prompt sizes manageable)
         const codeFiles = (treeJson.tree || [])
-          .filter((f: { path: string, type: string }) => f.type === "blob" && /\.(js|ts|jsx|tsx|py|go|java|c|cpp|cs|php|html|css)$/i.test(f.path))
+          .filter((f: any) => f.type === "blob" && /\.(js|ts|jsx|tsx|py|go|java|c|cpp|cs|php|html|css)$/i.test(f.path))
           .slice(0, 5);
 
         if (codeFiles.length === 0) {
@@ -236,11 +236,8 @@ export async function analyzeCode(githubUrl: string): Promise<AnalysisResult> {
     const data = JSON.parse(responseText);
 
     return { success: true, data, repoContext: repoContextData };
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-        console.error("Error analyzing code:", error);
-        return { success: false, error: error.message };
-    }
-    return { success: false, error: "An unexpected error occurred." };
+  } catch (error: any) {
+    console.error("Error analyzing code:", error);
+    return { success: false, error: error.message || "An unexpected error occurred." };
   }
 }

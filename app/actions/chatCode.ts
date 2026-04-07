@@ -64,11 +64,8 @@ export async function chatCode(
     const responseText = data.candidates?.[0]?.content?.parts?.[0]?.text || "No response generated.";
 
     return { success: true, response: responseText };
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-        console.error("Error in chatCode REST:", error);
-        return { success: false, error: error.message };
-    }
-    return { success: false, error: "Chat failed" };
+  } catch (error: any) {
+    console.error("Error in chatCode REST:", error);
+    return { success: false, error: error.message || "Chat failed" };
   }
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import CounterStat from "@/components/CounterStat";
@@ -555,7 +555,7 @@ export default function LandingPage() {
 
       {/* ── FEATURES BENTO GRID ─────────── */}
       <section id="features" style={{ padding: "80px 5vw", maxWidth: 1080, margin: "0 auto" }}>
-        <p className="section-label" style={{ color: "var(--blue)", marginBottom: 12 }}>{"// CAPABILITIES"}</p>
+        <p className="section-label" style={{ color: "var(--blue)", marginBottom: 12 }}>// CAPABILITIES</p>
         <h2
           style={{
             fontWeight: 800,
@@ -907,7 +907,7 @@ export default function LandingPage() {
         }}
       >
         <div style={{ maxWidth: 1080, margin: "0 auto" }}>
-          <p className="section-label" style={{ color: "var(--violet)", marginBottom: 12 }}>{"// PIPELINE"}</p>
+          <p className="section-label" style={{ color: "var(--violet)", marginBottom: 12 }}>// PIPELINE</p>
           <h2 style={{ fontWeight: 800, fontSize: "clamp(26px,4vw,46px)", letterSpacing: "-0.025em", marginBottom: 12 }}>
             From noise to <span className="gradient-text">root cause</span>
           </h2>
@@ -958,7 +958,7 @@ export default function LandingPage() {
         <div style={{ maxWidth: 1080, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 40 }}>
           {/* Left */}
           <div>
-            <p className="section-label" style={{ color: "var(--sky)", marginBottom: 12 }}>{"// LIVE DEMO"}</p>
+            <p className="section-label" style={{ color: "var(--sky)", marginBottom: 12 }}>// LIVE DEMO</p>
             <h2 style={{ fontWeight: 800, fontSize: "clamp(26px,4vw,46px)", letterSpacing: "-0.025em", marginBottom: 12 }}>
               Watch it <span className="gradient-text">work</span>
             </h2>
@@ -1056,7 +1056,7 @@ export default function LandingPage() {
         }}
       >
         <div style={{ maxWidth: 1080, margin: "0 auto" }}>
-          <p className="section-label" style={{ color: "var(--blue)", marginBottom: 12 }}>{"// ARCHITECTURE"}</p>
+          <p className="section-label" style={{ color: "var(--blue)", marginBottom: 12 }}>// ARCHITECTURE</p>
           <h2 style={{ fontWeight: 800, fontSize: "clamp(26px,4vw,46px)", letterSpacing: "-0.025em", marginBottom: 12 }}>
             Built to <span className="gradient-text">scale</span>
           </h2>
@@ -1112,7 +1112,7 @@ export default function LandingPage() {
       {/* ── COMPETITOR COMPARISON ─────── */}
       <section id="pricing" style={{ padding: "60px 5vw", borderTop: "1px solid var(--border)" }}>
         <div style={{ maxWidth: 800, margin: "0 auto" }}>
-          <p className="section-label" style={{ color: "var(--amber)", marginBottom: 12 }}>{"// WHY OPSCORD"}</p>
+          <p className="section-label" style={{ color: "var(--amber)", marginBottom: 12 }}>// WHY OPSCORD</p>
           <h2 style={{ fontWeight: 800, fontSize: "clamp(26px,4vw,46px)", letterSpacing: "-0.025em", marginBottom: 12 }}>
             Your current tools cost a fortune
           </h2>
@@ -1209,7 +1209,7 @@ export default function LandingPage() {
         }}
       >
         <div style={{ maxWidth: 640, margin: "0 auto" }}>
-          <p className="section-label" style={{ color: "var(--amber)", marginBottom: 12 }}>{"// BUILDING IN PUBLIC"}</p>
+          <p className="section-label" style={{ color: "var(--amber)", marginBottom: 12 }}>// BUILDING IN PUBLIC</p>
           <h2 style={{ fontWeight: 800, fontSize: "clamp(26px,4vw,46px)", letterSpacing: "-0.025em", marginBottom: 12 }}>
             We&apos;re building this <span className="gradient-text">live</span>
           </h2>
