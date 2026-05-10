@@ -1,5 +1,5 @@
 async function run() {
-  const key = "AIzaSyAYcS_AqeKPh6jvI0aRfuaotWcEID872bw";
+  const key = process.env.GEMINI_API_KEY;
   try {
     const result = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${key}`);
     const data = await result.json();
