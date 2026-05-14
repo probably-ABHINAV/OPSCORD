@@ -251,21 +251,7 @@ export default function LandingPage() {
       <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
 
       {/* ── NAVBAR ──────────────────────── */}
-      <nav
-        style={{
-          position: 'sticky',
-          top: 0,
-          zIndex: 100,
-          background: 'rgba(5,10,20,0.85)',
-          backdropFilter: 'blur(16px)',
-          borderBottom: '1px solid var(--border)',
-          height: 60,
-          padding: '0 5vw',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
-      >
+      <nav className="sticky top-0 z-50 h-14 sm:h-16 px-4 sm:px-6 lg:px-[5vw] flex items-center justify-between bg-[rgba(5,10,20,0.85)] backdrop-blur-[16px] border-b border-border">
         <span
           className="gradient-text"
           style={{ fontFamily: 'var(--font-space-mono)', fontSize: 20, fontWeight: 700 }}
@@ -273,14 +259,7 @@ export default function LandingPage() {
           OpsCord
         </span>
 
-        <div
-          style={{
-            display: 'flex',
-            gap: 28,
-            alignItems: 'center',
-          }}
-          className="hidden md:flex"
-        >
+        <div className="hidden md:flex items-center gap-7">
           {['Features', 'How It Works', 'Architecture', 'Pricing'].map((l) => (
             <a
               key={l}
@@ -299,86 +278,44 @@ export default function LandingPage() {
           ))}
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 6,
-              background: 'rgba(220,38,38,0.12)',
-              border: '1px solid rgba(220,38,38,0.35)',
-              borderRadius: 20,
-              padding: '4px 10px',
-            }}
-          >
-            <PulsingDot />
-            <span style={{ fontFamily: 'var(--font-space-mono)', fontSize: 11, color: '#fca5a5' }}>
-              SEED STAGE
-            </span>
+        <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+          <div className="hidden sm:flex items-center gap-2">
+            <div className="inline-flex items-center gap-2 rounded-full border border-[rgba(220,38,38,0.35)] bg-[rgba(220,38,38,0.12)] px-3 py-1">
+              <PulsingDot />
+              <span
+                className="font-space-mono text-[10px] uppercase tracking-[0.1em]"
+                style={{ color: '#fca5a5' }}
+              >
+                SEED STAGE
+              </span>
+            </div>
+
+            <Link
+              href="/analyzer"
+              className="inline-flex rounded-lg border border-[rgba(99,102,241,0.3)] bg-[rgba(99,102,241,0.1)] px-3 py-2 text-sm text-[#818cf8] transition-colors"
+            >
+              Code Analyzer
+            </Link>
+
+            <Link
+              href="/sign-in"
+              className="inline-flex rounded-lg border border-border px-3 py-2 text-sm text-text transition-colors"
+            >
+              Sign In
+            </Link>
           </div>
 
           <Link
-            href="/analyzer"
-            style={{
-              background: 'rgba(99,102,241,0.1)',
-              border: '1px solid rgba(99,102,241,0.3)',
-              borderRadius: 8,
-              padding: '6px 14px',
-              color: '#818cf8',
-              fontSize: 13,
-              textDecoration: 'none',
-              transition: 'border-color 0.2s',
-              marginRight: 8,
-            }}
-          >
-            Code Analyzer
-          </Link>
-
-          <Link
-            href="/sign-in"
-            style={{
-              background: 'transparent',
-              border: '1px solid var(--border)',
-              borderRadius: 8,
-              padding: '6px 14px',
-              color: 'var(--text)',
-              fontSize: 13,
-              textDecoration: 'none',
-              transition: 'border-color 0.2s',
-            }}
-          >
-            Sign In
-          </Link>
-
-          <Link
             href="/sign-up"
-            className="glow-btn"
-            style={{
-              background: 'linear-gradient(135deg, #3b82f6, #7c3aed)',
-              color: 'white',
-              fontSize: 13,
-              fontWeight: 700,
-              padding: '6px 16px',
-              borderRadius: 8,
-              textDecoration: 'none',
-              boxShadow: '0 0 20px rgba(99,102,241,0.3)',
-              border: 'none',
-            }}
+            className="inline-flex items-center rounded-xl bg-gradient-to-br from-blue-500 to-violet-500 px-3 py-2 text-sm font-semibold text-white shadow-[0_0_20px_rgba(99,102,241,0.3)]"
           >
             Get Early Access →
           </Link>
 
           <button
-            className="md:hidden"
+            className="md:hidden ml-1 text-2xl"
             onClick={() => setMenuOpen(true)}
-            style={{
-              background: 'none',
-              border: 'none',
-              color: 'var(--text)',
-              fontSize: 22,
-              cursor: 'pointer',
-              marginLeft: 4,
-            }}
+            style={{ background: 'none', border: 'none', color: 'var(--text)', cursor: 'pointer' }}
           >
             ☰
           </button>
