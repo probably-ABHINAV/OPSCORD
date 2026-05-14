@@ -1,32 +1,38 @@
 {
-  "name": "opscord",
-  "version": "0.1.0",
+  "name": "opscord-monorepo",
   "private": true,
+  "packageManager": "npm@11.7.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "type-check": "turbo run type-check",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,md,json}\"",
+    "validate": "npm run lint && npm run type-check && npm run test",
+    "prepare": "husky"
   },
-  "dependencies": {
-    "@google/generative-ai": "^0.24.1",
-    "@stackframe/stack": "^2.7.29",
-    "framer-motion": "^11.18.0",
-    "lucide-react": "^0.468.0",
-    "next": "14.2.21",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "recharts": "^2.15.0"
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ]
   },
   "devDependencies": {
-    "@types/node": "^22.10.0",
-    "@types/react": "^18.3.14",
-    "@types/react-dom": "^18.3.5",
-    "autoprefixer": "^10.4.20",
-    "eslint": "^8.57.1",
-    "eslint-config-next": "^14.2.21",
-    "postcss": "^8.4.49",
-    "tailwindcss": "^3.4.17",
-    "typescript": "^5.7.2"
+    "turbo": "^2.3.3",
+    "prettier": "^3.4.2",
+    "vitest": "^3.2.1",
+    "@vitest/coverage-v8": "^3.2.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.4.3"
   }
 }

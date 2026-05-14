@@ -1,0 +1,21 @@
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# OPSCORD — Code Owners
+# Require review from maintainers for critical paths
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+# Global fallback
+*                       @probably-ABHINAV
+
+# Core Infrastructure
+packages/db/            @probably-ABHINAV
+apps/api/               @probably-ABHINAV
+apps/ingestion/         @probably-ABHINAV
+
+# Security-Critical
+.github/workflows/      @probably-ABHINAV
+docker-compose*.yml     @probably-ABHINAV
+*.Dockerfile            @probably-ABHINAV
+.env.example            @probably-ABHINAV
+
+# Frontend
+apps/web/               @probably-ABHINAV

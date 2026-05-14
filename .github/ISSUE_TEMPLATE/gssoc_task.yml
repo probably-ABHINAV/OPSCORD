@@ -1,0 +1,50 @@
+name: "\U0001F31F GSSoC '26 Contributor Task"
+description: Specific template for GirlScript Summer of Code participants claiming or proposing tasks.
+title: '[GSSoC]: '
+labels: ['gssoc', 'triage']
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Welcome to OPSCORD, GSSoC Contributor! 🚀
+        Please use this template if you are proposing a new task for GSSoC, or if a mentor asked you to open an issue for your work.
+
+  - type: input
+    id: discord_handle
+    attributes:
+      label: Discord Username
+      description: What is your Discord handle so mentors can contact you?
+    validations:
+      required: true
+
+  - type: textarea
+    id: task_description
+    attributes:
+      label: Task Description
+      description: What exactly do you plan to build, fix, or write?
+      placeholder: I plan to build a new UI component for the incident timeline...
+    validations:
+      required: true
+
+  - type: textarea
+    id: implementation_plan
+    attributes:
+      label: Implementation Plan
+      description: Briefly describe HOW you plan to implement this (tech stack, files modified). This shows mentors you understand the task.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: agreements
+    attributes:
+      label: GSSoC Agreements
+      description: Please acknowledge the following rules.
+      options:
+        - label: 'I have read the CONTRIBUTING.md file.'
+          required: true
+        - label: 'I will not open a PR until a mentor assigns this issue to me.'
+          required: true
+        - label: 'I understand that spam or trivial PRs will be rejected.'
+          required: true

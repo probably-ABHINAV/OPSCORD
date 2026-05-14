@@ -1,0 +1,23 @@
+{
+  "name": "@opscord/api",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "lint": "echo 'no standalone lint for api'",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@opscord/db": "*",
+    "@hono/node-server": "^1.11.1",
+    "hono": "^4.2.3",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "tsx": "^4.7.2",
+    "typescript": "^5.4.5"
+  }
+}

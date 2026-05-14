@@ -1,0 +1,19 @@
+{
+  "name": "@opscord/db",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "scripts": {
+    "db:push": "prisma db push",
+    "db:studio": "prisma studio",
+    "db:generate": "prisma generate"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.12.1"
+  },
+  "devDependencies": {
+    "prisma": "^5.12.1",
+    "typescript": "^5.4.5"
+  }
+}

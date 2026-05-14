@@ -1,0 +1,20 @@
+{
+  "projectName": "OPSCORD",
+  "projectOwner": "probably-ABHINAV",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": ["README.md"],
+  "imageSize": 80,
+  "commit": true,
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "probably-ABHINAV",
+      "name": "Abhinav",
+      "avatar_url": "https://avatars.githubusercontent.com/u/probably-ABHINAV",
+      "profile": "https://github.com/probably-ABHINAV",
+      "contributions": ["code", "doc", "infra", "maintenance", "projectManagement"]
+    }
+  ],
+  "contributorsPerLine": 7
+}

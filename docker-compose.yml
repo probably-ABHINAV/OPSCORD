@@ -1,0 +1,61 @@
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# OPSCORD — Local Development Environment
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# Usage: docker compose up -d
+# This starts ONLY infrastructure services.
+# Run app services with `npm run dev` in a separate terminal.
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+services:
+  # ── PostgreSQL ────────────────────────
+  db:
+    image: postgres:15-alpine
+    container_name: opscord-postgres
+    environment:
+      POSTGRES_USER: opscord
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: opscord_dev
+    ports:
+      - '5432:5432'
+    volumes:
+      - opscord_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U opscord']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # ── Redis ─────────────────────────────
+  redis:
+    image: redis:7-alpine
+    container_name: opscord-redis
+    ports:
+      - '6379:6379'
+    volumes:
+      - opscord_redisdata:/data
+    command: redis-server --appendonly yes --maxmemory 128mb --maxmemory-policy allkeys-lru
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped
+
+  # ── Redis Commander (Dev UI) ──────────
+  redis-ui:
+    image: rediscommander/redis-commander:latest
+    container_name: opscord-redis-ui
+    environment:
+      REDIS_HOSTS: local:redis:6379
+    ports:
+      - '8081:8081'
+    depends_on:
+      redis:
+        condition: service_healthy
+    profiles:
+      - tools
+
+volumes:
+  opscord_pgdata:
+  opscord_redisdata:

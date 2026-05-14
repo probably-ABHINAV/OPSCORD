@@ -1,0 +1,64 @@
+name: "\U0001F41B Bug Report"
+description: Create a report to help us improve OPSCORD
+title: '[BUG]: '
+labels: ['bug', 'triage']
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report! 
+        Before you submit, please search the [existing issues](https://github.com/probably-ABHINAV/OPSCORD/issues) to see if it has already been reported.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A clear and concise description of what the bug is.
+      placeholder: When I click the "Generate Post-Mortem" button, the dashboard crashes...
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps To Reproduce
+      description: Steps to reproduce the behavior.
+      value: |
+        1. Go to '...'
+        2. Click on '....'
+        3. Scroll down to '....'
+        4. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: A clear and concise description of what you expected to happen.
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment Matrix
+      description: What environment are you running this in?
+      value: |
+        - OS: [e.g. Windows, macOS, Linux]
+        - Browser: [e.g. Chrome, Safari, Firefox]
+        - Node Version: [e.g. v20.x]
+        - Docker Version: [if applicable]
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: claim
+    attributes:
+      label: Would you like to work on this issue?
+      description: Let us know if you want to submit a PR to fix this!
+      options:
+        - label: 'Yes, I would like to submit a PR for this issue.'
+        - label: 'No, I am just reporting it.'

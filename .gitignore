@@ -1,4 +1,45 @@
-.env.local
-.env
-.next/
+# ── Dependencies ────────────────────────
 node_modules/
+.pnp
+.pnp.js
+
+# ── Build Outputs ───────────────────────
+.next/
+dist/
+.turbo/
+*.tsbuildinfo
+out/
+
+# ── Environment Variables ───────────────
+.env
+.env.local
+.env.staging
+.env.production
+.env*.local
+
+# ── IDE ─────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ── OS ──────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── Docker ──────────────────────────────
+docker-compose.override.yml
+
+# ── Debug ───────────────────────────────
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ── Prisma ──────────────────────────────
+packages/db/prisma/*.db
+
+# ── Misc ────────────────────────────────
+tmp/
+*.log
+coverage/
