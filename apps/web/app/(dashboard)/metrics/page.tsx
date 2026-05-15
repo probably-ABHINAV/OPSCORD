@@ -1,8 +1,9 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import MetricCard from '@/components/core/MetricCard';
 import { CHART_DATA } from '@/lib/mockData';
+import MetricsLoading from './loading';
 import {
   AreaChart,
   Area,
@@ -60,6 +61,15 @@ function ChartTooltipContent({
 }
 
 export default function MetricsPage() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) return <MetricsLoading />;
+
   return (
     <div className="flex flex-col gap-6">
       <div>
