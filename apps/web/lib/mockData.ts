@@ -3,14 +3,25 @@
 // All mock data used across the application
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
+/**
+ * Represents a single operational event displayed in the activity feed.
+ */
 export interface EventItem {
+  /** Name of the integration or service that emitted the event. */
   src: string;
+  /** Short category describing the event kind, such as deploy or alert. */
   type: string;
+  /** Human-readable event summary shown in the UI. */
   msg: string;
+  /** Accent color associated with the event source. */
   color: string;
+  /** Compact visual marker used alongside the source label. */
   icon: string;
 }
 
+/**
+ * Mock activity feed events used to demonstrate incoming telemetry from connected tools.
+ */
 export const EVENTS: EventItem[] = [
   {
     src: 'GitHub',
@@ -78,20 +89,37 @@ export const EVENTS: EventItem[] = [
   },
 ];
 
+/**
+ * Describes an incident card shown in the dashboard incident list.
+ */
 export interface Incident {
+  /** Stable incident identifier displayed to users. */
   id: string;
+  /** Short incident headline summarizing the detected issue. */
   title: string;
+  /** Integration or service most closely associated with the incident. */
   source: string;
+  /** Compact visual marker for the incident source. */
   sourceIcon: string;
+  /** Accent color associated with the incident source. */
   sourceColor: string;
+  /** Incident impact level used for sorting and visual emphasis. */
   severity: 'Critical' | 'High' | 'Medium' | 'Low';
+  /** Accent color associated with the severity label. */
   severityColor: string;
+  /** Mock AI causality score indicating confidence in the suspected root cause. */
   causalityScore: number;
+  /** Current incident lifecycle state displayed in the dashboard. */
   status: 'Investigating' | 'Identified' | 'Monitoring' | 'Resolved';
+  /** Accent color associated with the incident status label. */
   statusColor: string;
+  /** Relative timestamp describing when the incident was detected or updated. */
   time: string;
 }
 
+/**
+ * Mock incident records used by dashboard views to preview active and resolved issues.
+ */
 export const INCIDENTS: Incident[] = [
   {
     id: 'INC-001',
@@ -160,12 +188,18 @@ export const INCIDENTS: Incident[] = [
   },
 ];
 
+/**
+ * Mock 24-hour time series used to populate event and incident charts.
+ */
 export const CHART_DATA = Array.from({ length: 24 }, (_, i) => ({
   hour: `${String(i).padStart(2, '0')}:00`,
   events: Math.floor(400 + Math.random() * 1000),
   incidents: Math.floor(1 + Math.random() * 12),
 }));
 
+/**
+ * Mock topology nodes rendered in the landing page hero workflow diagram.
+ */
 export const HERO_NODES = [
   { label: 'CircleCI', x: 0.14, y: 0.35, color: '#00D4AA' },
   { label: 'GitHub', x: 0.14, y: 0.52, color: '#f0883e' },
@@ -179,6 +213,9 @@ export const HERO_NODES = [
   { label: 'Slack', x: 0.93, y: 0.44, color: '#4A154B' },
 ];
 
+/**
+ * Mock topology edges connecting hero diagram nodes by their index positions.
+ */
 export const HERO_EDGES: [number, number][] = [
   [0, 4],
   [1, 4],
@@ -192,6 +229,9 @@ export const HERO_EDGES: [number, number][] = [
   [8, 9],
 ];
 
+/**
+ * Mock integration names displayed in the supported integrations logo strip.
+ */
 export const INTEGRATION_LOGOS = [
   'CircleCI',
   'GitHub',
