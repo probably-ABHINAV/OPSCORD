@@ -62,7 +62,7 @@ export default function SwarmActivity() {
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 4,
-                background: 'rgba(255,255,255,0.03)',
+                background: 'var(bg)',
                 border: `1px solid ${agent?.color}22`,
                 borderRadius: 10,
                 padding: '10px 14px',

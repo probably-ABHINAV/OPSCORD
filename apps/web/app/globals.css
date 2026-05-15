@@ -5,6 +5,7 @@
 :root {
   --bg-primary: #000000;
   --bg-card: #0A0A0A;
+  --bg: #020617;
   --bg-surface: #111111;
   --border: rgba(255, 255, 255, 0.1);
   --border-hover: rgba(255, 255, 255, 0.2);
@@ -15,6 +16,17 @@
   --green: #17c964;
   --red: #F31260;
   --amber: #F5A623;
+}
+
+/*Light theme added here */
+[data-theme='light']
+{
+  --bg: #ffffff;
+  --bg-card: #f8fafc;
+  --text: #0f172a;
+  --muted: #475569;
+  --border: #cbd5e1;
+  --blue: #2563eb;
 }
 
 * {
@@ -28,7 +40,7 @@ html {
 }
 
 body {
-  background: var(--bg-primary);
+  background: var(--bg);
   color: var(--text);
   font-family: var(--font-dm-sans), sans-serif;
   -webkit-font-smoothing: antialiased;

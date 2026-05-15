@@ -74,7 +74,7 @@ export default function EventFeed({ maxItems = 8, compact = false }: EventFeedPr
             transition: 'background 0.15s',
             cursor: 'default',
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.03)')}
+          onMouseEnter={(e) => (e.currentTarget.style.background = 'var(card)')}
           onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
         >
           <span

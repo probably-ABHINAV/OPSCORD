@@ -131,7 +131,7 @@ export default function DashboardOverview() {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
           gap: 16,
           marginBottom: 24,
         }}
@@ -191,7 +191,7 @@ export default function DashboardOverview() {
                 <thead>
                   <tr
                     style={{
-                      background: 'rgba(255,255,255,0.03)',
+                      background: 'var(bg)',
                       borderBottom: '1px solid var(--border)',
                     }}
                   >

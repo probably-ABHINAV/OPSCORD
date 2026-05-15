@@ -32,7 +32,15 @@ function PulsingDot({ color = '#ef4444', size = 7 }: { color?: string; size?: nu
 }
 
 /* ── Mobile Menu ──────────────────────────── */
-function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
+function MobileMenu({
+  open,
+  onClose,
+  darkMode,
+}: {
+  open: boolean;
+  onClose: () => void;
+  darkMode: boolean;
+}) {
   if (!open) return null;
   return (
     <div
@@ -53,7 +61,7 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
         <a
           key={l}
           href={`#${l.toLowerCase().replace(/ /g, '-')}`}
-          style={{ color: '#f1f5f9', fontSize: 20, fontWeight: 600 }}
+          style={{ color: darkMode ? '#f1f5f9' : '#0f172a', fontSize: 20, fontWeight: 600 }}
           onClick={onClose}
         >
           {l}
@@ -82,7 +90,7 @@ function MiniEventPreview() {
       style={{
         maxWidth: 520,
         margin: '48px auto 0',
-        background: 'rgba(8,16,36,0.92)',
+        background: 'var(--card)',
         border: '1px solid rgba(99,139,255,0.15)',
         borderRadius: 14,
         padding: '16px 20px',
@@ -182,11 +190,21 @@ export default function LandingPage() {
   const [toast, setToast] = useState(false);
   const [email, setEmail] = useState('');
   const [epsCount, setEpsCount] = useState(847);
+  const [darkMode, setDarkMode] = useState(true);
 
   useEffect(() => {
+    const root = document.documentElement;
+    root.style.setProperty('--bg', darkMode ? '#0f172a' : '#ffffff');
+    root.style.setProperty('--text', darkMode ? '#f1f5f9' : '#0f172a');
+
+    root.style.setProperty('--muted', darkMode ? '#94a3b8' : '#475569');
+    root.style.setProperty('--card', darkMode ? 'rgba(8,16,36,0.92)' : '#f8fafc');
+    root.style.setProperty('--border', darkMode ? 'rgba(99,139,255,0.15)' : '#e2e8f0');
+    root.style.setProperty('--primary', '#3b82f6');
+    root.style.setProperty('--secondary', '#7c3aed');
     const iv = setInterval(() => setEpsCount(800 + Math.floor(Math.random() * 100)), 3000);
     return () => clearInterval(iv);
-  }, []);
+  }, [darkMode]);
 
   const handleWaitlist = (e: React.FormEvent) => {
     e.preventDefault();
@@ -197,7 +215,14 @@ export default function LandingPage() {
   };
 
   return (
-    <>
+    <div
+      style={{
+        background: 'var(--bg)',
+        color: 'var(--text)',
+        minHeight: '100vh',
+        transition: 'all 0.3s ease',
+      }}
+    >
       {toast && <div className="toast">✓ You&apos;re on the waitlist!</div>}
 
       {/* Architecture Modal */}
@@ -248,7 +273,7 @@ export default function LandingPage() {
         </div>
       )}
 
-      <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
+      <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} darkMode={darkMode} />
 
       {/* ── NAVBAR ──────────────────────── */}
       <nav
@@ -256,7 +281,7 @@ export default function LandingPage() {
           position: 'sticky',
           top: 0,
           zIndex: 100,
-          background: 'rgba(5,10,20,0.85)',
+          background: 'var(--card)',
           backdropFilter: 'blur(16px)',
           borderBottom: '1px solid var(--border)',
           height: 60,
@@ -279,7 +304,7 @@ export default function LandingPage() {
             gap: 28,
             alignItems: 'center',
           }}
-          className="hidden md:flex"
+          className="hidden lg:flex"
         >
           {['Features', 'How It Works', 'Architecture', 'Pricing'].map((l) => (
             <a
@@ -300,6 +325,21 @@ export default function LandingPage() {
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          {/* Theme Toggle */}
+          <button
+            onClick={() => setDarkMode(!darkMode)}
+            style={{
+              background: darkMode ? '#fff' : '#111',
+              color: darkMode ? '#111' : '#fff',
+              border: '1px solid var(--border)',
+              borderRadius: 8,
+              padding: '6px 12px',
+              cursor: 'pointer',
+              fontSize: 13,
+            }}
+          >
+            {darkMode ? '☀️ Light' : '🌙 Dark'}
+          </button>
           <div
             style={{
               display: 'inline-flex',
@@ -369,7 +409,7 @@ export default function LandingPage() {
           </Link>
 
           <button
-            className="md:hidden"
+            className="hidden lg:flex"
             onClick={() => setMenuOpen(true)}
             style={{
               background: 'none',
@@ -431,7 +471,7 @@ export default function LandingPage() {
           >
             <span className="gradient-text">Stop Firefighting.</span>
             <br />
-            <span style={{ color: '#f1f5f9' }}>Start Understanding.</span>
+            <span style={{ color: 'var(--text)' }}>Start Understanding.</span>
           </h1>
 
           <p
@@ -448,7 +488,15 @@ export default function LandingPage() {
             <em style={{ color: 'var(--sky)', fontStyle: 'italic' }}>why</em>.
           </p>
 
-          <div style={{ display: 'flex', gap: 14, justifyContent: 'center', marginTop: 32 }}>
+          <div
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: 14,
+              justifyContent: 'center',
+              marginTop: 32,
+            }}
+          >
             <a
               href="#waitlist"
               className="glow-btn"
@@ -607,7 +655,13 @@ export default function LandingPage() {
           From raw webhook noise to a ranked root-cause list in under 40ms.
         </p>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            gap: 16,
+          }}
+        >
           {/* Card 1 — Causality Scoring */}
           <div
             className="card-hover"
@@ -1047,7 +1101,7 @@ export default function LandingPage() {
                   transition: 'background 0.2s',
                   cursor: 'default',
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.03)')}
+                onMouseEnter={(e) => (e.currentTarget.style.background = 'var(bg)')}
                 onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
               >
                 <div
@@ -1199,7 +1253,7 @@ export default function LandingPage() {
           >
             <div
               style={{
-                background: 'rgba(255,255,255,0.03)',
+                background: 'var(bg)',
                 borderBottom: '1px solid var(--border)',
                 padding: '12px 20px',
                 display: 'flex',
@@ -1313,7 +1367,7 @@ export default function LandingPage() {
               <thead>
                 <tr
                   style={{
-                    background: 'rgba(255,255,255,0.03)',
+                    background: 'var(bg)',
                     borderBottom: '1px solid var(--border)',
                   }}
                 >
@@ -1586,6 +1640,6 @@ export default function LandingPage() {
           ))}
         </div>
       </footer>
-    </>
+    </div>
   );
 }

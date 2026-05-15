@@ -134,6 +134,8 @@ export default function ArchitectureDiagram() {
               />
               {/* Animated Data Point */}
               <motion.circle
+                cx={flow.from[0]}
+                cy={flow.from[1]}
                 r={1.5}
                 fill={flow.dashed ? warningColor : primaryColor}
                 animate={{
