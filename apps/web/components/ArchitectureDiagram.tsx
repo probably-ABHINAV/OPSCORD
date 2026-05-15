@@ -95,7 +95,7 @@ export default function ArchitectureDiagram() {
         viewBox="0 0 1300 550"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        style={{ width: '100%', height: 'auto', minWidth: 1000 }}
+        style={{ width: '100%', height: 'auto', minWidth: '100%' }}
       >
         {/* Background Grid */}
         <defs>

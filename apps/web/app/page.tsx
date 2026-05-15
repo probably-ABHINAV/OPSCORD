@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { ArrowUp } from 'lucide-react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import CounterStat from '@/components/CounterStat';
@@ -183,11 +184,48 @@ export default function LandingPage() {
   const [toast, setToast] = useState(false);
   const [email, setEmail] = useState('');
   const [epsCount, setEpsCount] = useState(847);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     const iv = setInterval(() => setEpsCount(800 + Math.floor(Math.random() * 100)), 3000);
     return () => clearInterval(iv);
   }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
+
+      const threshold = isMobile ? 10 : 50;
+      setShowScrollTop(scrollTop > threshold);
+    };
+
+    handleScroll();
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [isMobile]);
 
   const handleWaitlist = (e: React.FormEvent) => {
     e.preventDefault();
@@ -244,7 +282,9 @@ export default function LandingPage() {
               ✕
             </button>
             <h3 style={{ fontWeight: 800, fontSize: 20, marginBottom: 16 }}>System Architecture</h3>
-            <ArchitectureDiagram />
+            <div style={{ width: '100%', overflowX: 'hidden' }}>
+              <ArchitectureDiagram />
+            </div>
           </div>
         </div>
       )}
@@ -308,15 +348,21 @@ export default function LandingPage() {
 
           <Link
             href="/sign-up"
-            className="inline-flex items-center rounded-xl bg-gradient-to-br from-blue-500 to-violet-500 px-3 py-2 text-sm font-semibold text-white shadow-[0_0_20px_rgba(99,102,241,0.3)]"
+            className="hidden sm:inline-flex items-center rounded-xl bg-gradient-to-br from-blue-500 to-violet-500 px-3 py-2 text-sm font-semibold text-white shadow-[0_0_20px_rgba(99,102,241,0.3)]"
           >
             Get Early Access →
           </Link>
 
           <button
-            className="md:hidden ml-1 text-2xl"
+            className="md:hidden ml-2 text-2xl flex items-center justify-center"
             onClick={() => setMenuOpen(true)}
-            style={{ background: 'none', border: 'none', color: 'var(--text)', cursor: 'pointer' }}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: 'var(--text)',
+              cursor: 'pointer',
+              padding: '4px',
+            }}
           >
             ☰
           </button>
@@ -333,13 +379,21 @@ export default function LandingPage() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          padding: '40px 5vw 60px',
+          padding: '32px 16px 60px',
           textAlign: 'center',
         }}
       >
         <CanvasBackground />
 
-        <div style={{ position: 'relative', zIndex: 2, maxWidth: 800 }}>
+        <div
+          style={{
+            position: 'relative',
+            zIndex: 2,
+            maxWidth: 800,
+            width: '100%',
+            padding: '0 8px',
+          }}
+        >
           <div
             style={{
               display: 'inline-flex',
@@ -350,10 +404,18 @@ export default function LandingPage() {
               borderRadius: 20,
               padding: '7px 16px',
               marginBottom: 28,
+              flexWrap: 'wrap',
+              justifyContent: 'center',
             }}
           >
             <PulsingDot />
-            <span style={{ fontFamily: 'var(--font-space-mono)', fontSize: 11, color: '#fca5a5' }}>
+            <span
+              style={{
+                fontFamily: 'var(--font-space-mono)',
+                fontSize: 'clamp(10px, 2vw, 11px)',
+                color: '#fca5a5',
+              }}
+            >
               LIVE BUILD · PRESENTING TODAY
             </span>
           </div>
@@ -361,7 +423,7 @@ export default function LandingPage() {
           <h1
             style={{
               fontWeight: 800,
-              fontSize: 'clamp(38px,6.5vw,84px)',
+              fontSize: 'clamp(32px, 8vw, 84px)',
               letterSpacing: '-0.035em',
               lineHeight: 1.05,
               animation: 'fadeUp 0.6s ease',
@@ -374,11 +436,14 @@ export default function LandingPage() {
 
           <p
             style={{
-              fontSize: 19,
+              fontSize: 'clamp(14px, 2.5vw, 19px)',
               color: 'var(--muted)',
               maxWidth: 540,
+              padding: '0 8px',
               margin: '24px auto 0',
               lineHeight: 1.75,
+              position: 'relative',
+              zIndex: 3,
             }}
           >
             OpsCord ingests events from CircleCI, GitHub, Kubernetes &amp; Datadog, then uses AI
@@ -386,7 +451,15 @@ export default function LandingPage() {
             <em style={{ color: 'var(--sky)', fontStyle: 'italic' }}>why</em>.
           </p>
 
-          <div style={{ display: 'flex', gap: 14, justifyContent: 'center', marginTop: 32 }}>
+          <div
+            style={{
+              display: 'flex',
+              gap: 14,
+              justifyContent: 'center',
+              marginTop: 32,
+              flexWrap: 'wrap',
+            }}
+          >
             <a
               href="#waitlist"
               className="glow-btn"
@@ -431,7 +504,7 @@ export default function LandingPage() {
           borderTop: '1px solid var(--border)',
           borderBottom: '1px solid var(--border)',
           display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
+          gridTemplateColumns: 'repeat(2, 1fr)',
         }}
       >
         {[
@@ -1246,7 +1319,7 @@ export default function LandingPage() {
             And they still don&apos;t tell you the root cause.
           </p>
 
-          <div className="card" style={{ overflow: 'hidden', padding: 0 }}>
+          <div className="card" style={{ overflow: 'auto', padding: 0 }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
               <thead>
                 <tr
@@ -1483,6 +1556,32 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+
+      {showScrollTop && (
+        <button
+          onClick={scrollToTop}
+          aria-label="Scroll to top"
+          style={{
+            position: 'fixed',
+            bottom: 16,
+            right: isMobile ? 16 : 34,
+            width: 48,
+            height: 48,
+            borderRadius: '50%',
+            border: '1px solid var(--border)',
+            background: 'rgba(8,16,36,0.92)',
+            color: 'white',
+            cursor: 'pointer',
+            zIndex: 999,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            boxShadow: '0 0 20px rgba(99,102,241,0.3)',
+          }}
+        >
+          <ArrowUp size={20} />
+        </button>
+      )}
 
       {/* ── FOOTER ─────────────────────── */}
       <footer
