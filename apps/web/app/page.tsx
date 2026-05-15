@@ -5,6 +5,7 @@ import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import CounterStat from '@/components/CounterStat';
 import { EVENTS, INTEGRATION_LOGOS } from '@/lib/mockData';
+import { FOOTER_NAV_ITEMS, SITE_CONFIG } from './src/config/site';
 
 const CanvasBackground = dynamic(() => import('@/components/CanvasBackground'), { ssr: false });
 const EventFeed = dynamic(() => import('@/components/EventFeed'), {
@@ -1499,16 +1500,16 @@ export default function LandingPage() {
           className="gradient-text"
           style={{ fontFamily: 'var(--font-space-mono)', fontSize: 18, fontWeight: 700 }}
         >
-          OpsCord
+          {SITE_CONFIG.name}
         </span>
-        <span style={{ fontSize: 13, color: 'var(--muted)' }}>
-          © 2026 OpsCord · Built for DevOps teams · Seed Stage
-        </span>
+        <span style={{ fontSize: 13, color: 'var(--muted)' }}>{SITE_CONFIG.description}</span>
         <div style={{ display: 'flex', gap: 20 }}>
-          {['GitHub', 'Twitter', 'Docs', 'Contact'].map((l) => (
+          {FOOTER_NAV_ITEMS.map((item) => (
             <a
-              key={l}
-              href="#"
+              key={item.label}
+              href={item.href}
+              target={item.href.startsWith('mailto:') ? '_self' : '_blank'}
+              rel="noopener noreferrer"
               style={{
                 fontSize: 13,
                 color: 'var(--muted)',
@@ -1518,7 +1519,7 @@ export default function LandingPage() {
               onMouseEnter={(e) => (e.currentTarget.style.color = '#f1f5f9')}
               onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--muted)')}
             >
-              {l}
+              {item.label}
             </a>
           ))}
         </div>
