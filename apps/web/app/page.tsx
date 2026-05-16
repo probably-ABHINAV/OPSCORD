@@ -52,14 +52,39 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
       onClick={onClose}
     >
       {['Features', 'How It Works', 'Architecture', 'Pricing'].map((l) => (
-        <a
+        // <a
+        //   key={l}
+        //   href={`#${l.toLowerCase().replace(/ /g, '-')}`}
+        //   style={{ color: '#f1f5f9', fontSize: 20, fontWeight: 600 }}
+        //   onClick={onClose}
+        // >
+        //   {l}
+        // </a>
+        <button
           key={l}
-          href={`#${l.toLowerCase().replace(/ /g, '-')}`}
-          style={{ color: '#f1f5f9', fontSize: 20, fontWeight: 600 }}
-          onClick={onClose}
+          style={{
+            color: '#f1f5f9',
+            fontSize: 20,
+            fontWeight: 600,
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+          }}
+          onClick={() => {
+            const id = l.toLowerCase().replace(/ /g, '-');
+            const section = document.getElementById(id);
+
+            if (section) {
+              section.scrollIntoView({
+                behavior: 'smooth',
+              });
+            }
+
+            onClose();
+          }}
         >
           {l}
-        </a>
+        </button>
       ))}
     </div>
   );
@@ -211,6 +236,22 @@ export default function LandingPage() {
   }, []);
 
   useEffect(() => {
+    //lands me back to the top of the landing page always
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+
+    window.scrollTo({
+      top: 0,
+      behavior: 'instant',
+    });
+
+    return () => {
+      window.history.scrollRestoration = 'auto';
+    };
+  }, []);
+
+  useEffect(() => {
     const handleScroll = () => {
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop || 0;
 
@@ -302,20 +343,47 @@ export default function LandingPage() {
 
         <div className="hidden md:flex items-center gap-7">
           {['Features', 'How It Works', 'Architecture', 'Pricing'].map((l) => (
-            <a
+            // <a
+            //   key={l}
+            //   href={`#${l.toLowerCase().replace(/ /g, '-')}`}
+            //   style={{
+            //     fontSize: 13,
+            //     color: 'var(--muted)',
+            //     textDecoration: 'none',
+            //     transition: 'color 0.2s',
+            //   }}
+            //   onMouseEnter={(e) => (e.currentTarget.style.color = '#f1f5f9')}
+            //   onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--muted)')}
+            // >
+            //   {l}
+            // </a>
+            <button
               key={l}
-              href={`#${l.toLowerCase().replace(/ /g, '-')}`}
               style={{
                 fontSize: 13,
                 color: 'var(--muted)',
                 textDecoration: 'none',
                 transition: 'color 0.2s',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                padding: 0,
               }}
               onMouseEnter={(e) => (e.currentTarget.style.color = '#f1f5f9')}
               onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--muted)')}
+              onClick={() => {
+                const id = l.toLowerCase().replace(/ /g, '-');
+                const section = document.getElementById(id);
+
+                if (section) {
+                  section.scrollIntoView({
+                    behavior: 'smooth',
+                  });
+                }
+              }}
             >
               {l}
-            </a>
+            </button>
           ))}
         </div>
 
