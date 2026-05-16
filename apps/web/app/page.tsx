@@ -437,7 +437,7 @@ export default function LandingPage() {
           <p
             style={{
               fontSize: 'clamp(14px, 2.5vw, 19px)',
-              color: 'var(--muted)',
+              color: '#94a3b8',
               maxWidth: 540,
               padding: '0 8px',
               margin: '24px auto 0',
