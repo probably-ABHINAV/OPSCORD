@@ -7,6 +7,7 @@ import dynamic from 'next/dynamic';
 import CounterStat from '@/components/CounterStat';
 import { EVENTS, INTEGRATION_LOGOS } from '@/lib/mockData';
 import { FOOTER_NAV_ITEMS, SITE_CONFIG } from './src/config/site';
+import BuildingInPublicTimeline from '@/components/BuildingInPublicTimeline';
 
 const CanvasBackground = dynamic(() => import('@/components/CanvasBackground'), { ssr: false });
 const EventFeed = dynamic(() => import('@/components/EventFeed'), {
@@ -1520,54 +1521,7 @@ export default function LandingPage() {
             </button>
           </form>
 
-          <div
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              justifyContent: 'center',
-              gap: 8,
-              marginTop: 24,
-            }}
-          >
-            {[
-              { label: '✓ Architecture Complete', type: 'green' },
-              { label: '✓ Event Ingestion', type: 'green' },
-              { label: '✓ Auth (Stack Auth)', type: 'green' },
-              { label: '◎ Causality Engine', type: 'amber' },
-              { label: '○ Production Deploy', type: 'dim' },
-              { label: '○ Beta Launch', type: 'dim' },
-            ].map((pill) => (
-              <span
-                key={pill.label}
-                style={{
-                  fontSize: 12,
-                  fontWeight: 600,
-                  padding: '7px 14px',
-                  borderRadius: 20,
-                  ...(pill.type === 'green'
-                    ? {
-                        background: 'rgba(16,185,129,0.12)',
-                        border: '1px solid rgba(16,185,129,0.3)',
-                        color: '#6ee7b7',
-                      }
-                    : pill.type === 'amber'
-                      ? {
-                          background: 'rgba(251,191,36,0.12)',
-                          border: '1px solid rgba(251,191,36,0.3)',
-                          color: '#fcd34d',
-                          animation: 'pulseGlow 2s infinite',
-                        }
-                      : {
-                          background: 'rgba(255,255,255,0.05)',
-                          border: '1px solid rgba(255,255,255,0.1)',
-                          color: 'var(--muted)',
-                        }),
-                }}
-              >
-                {pill.label}
-              </span>
-            ))}
-          </div>
+          <BuildingInPublicTimeline />
         </div>
       </section>
 
