@@ -3,7 +3,7 @@ export const SITE_CONFIG = {
   description: '© 2026 OpsCord · Built for DevOps teams · Seed Stage',
   links: {
     github: 'https://github.com/probably-ABHINAV/OPSCORD',
-    twitter: 'https://twitter.com/',
+    twitter: 'https://twitter.com/opscord',
     docs: 'https://github.com/probably-ABHINAV/OPSCORD/tree/main/docs',
     contact: 'mailto:support@opscord.com',
   },
