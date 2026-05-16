@@ -3,6 +3,10 @@
 // All mock data used across the application
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
+/**
+ * Represents a single infrastructure or observability event
+ * displayed in the realtime activity feed.
+ */
 export interface EventItem {
   src: string;
   type: string;
@@ -11,6 +15,10 @@ export interface EventItem {
   icon: string;
 }
 
+/**
+ * Mock realtime event stream used for dashboard previews
+ * and local development.
+ */
 export const EVENTS: EventItem[] = [
   {
     src: 'GitHub',
@@ -78,6 +86,10 @@ export const EVENTS: EventItem[] = [
   },
 ];
 
+/**
+ * Represents an incident entry displayed in the incident
+ * management and causality analysis dashboard.
+ */
 export interface Incident {
   id: string;
   title: string;
@@ -92,6 +104,9 @@ export interface Incident {
   time: string;
 }
 
+/**
+ * Sample incident records used in the incident command center UI.
+ */
 export const INCIDENTS: Incident[] = [
   {
     id: 'INC-001',
@@ -160,12 +175,19 @@ export const INCIDENTS: Incident[] = [
   },
 ];
 
+/**
+ * Hourly metrics data used for charts and analytics visualizations.
+ */
 export const CHART_DATA = Array.from({ length: 24 }, (_, i) => ({
   hour: `${String(i).padStart(2, '0')}:00`,
   events: Math.floor(400 + Math.random() * 1000),
   incidents: Math.floor(1 + Math.random() * 12),
 }));
 
+/**
+ * Mock node graph data used in the landing page hero
+ * architecture visualization.
+ */
 export const HERO_NODES = [
   { label: 'CircleCI', x: 0.14, y: 0.35, color: '#00D4AA' },
   { label: 'GitHub', x: 0.14, y: 0.52, color: '#f0883e' },
@@ -179,6 +201,9 @@ export const HERO_NODES = [
   { label: 'Slack', x: 0.93, y: 0.44, color: '#4A154B' },
 ];
 
+/**
+ * Connection mapping between hero visualization nodes.
+ */
 export const HERO_EDGES: [number, number][] = [
   [0, 4],
   [1, 4],
@@ -192,6 +217,10 @@ export const HERO_EDGES: [number, number][] = [
   [8, 9],
 ];
 
+/**
+ * List of supported integrations displayed across
+ * the platform marketing and dashboard UI.
+ */
 export const INTEGRATION_LOGOS = [
   'CircleCI',
   'GitHub',
