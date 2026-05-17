@@ -208,3 +208,26 @@ Please read our [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) for community rules.
 <div align="center">
   <i>Built with ⚡ by the OPSCORD Community.</i>
 </div>
+## Troubleshooting
+
+### npm not recognized
+
+Install Node.js from:
+https://nodejs.org/
+
+### Git not recognized
+
+Install Git from:
+https://git-scm.com/download/win
+
+### PowerShell blocks npm
+
+Use Command Prompt instead of PowerShell.
+
+### Prisma client error
+
+If you get:
+
+`@prisma/client did not initialize yet`
+
+the Prisma setup steps may be missing or incomplete.

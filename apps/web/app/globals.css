@@ -66,7 +66,35 @@ body {
   box-shadow: 0 0 52px rgba(99, 102, 241, 0.65);
   transform: scale(1.02);
 }
+.step-card{
+  transition: all 0.3s ease;
+}
+.tags{
+  color: white;
+}
+.tags:hover{
+  transform: scale(1.05);
+  color: #e746d194;
+}
 
+.step-card{
+  transition: all 0.3s ease;
+  background: rgba(168, 85, 247, 0.08);
+  border: 1px solid #a855f7;
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.6);
+}
+.step-card:hover{
+  transform: scale(1.03)
+}
+.step-icon:hover {
+  transform: scale(1.03);
+}
+.step-card:hover .step-label {
+  cursor:text ;
+}
+.step-card:hover .step-body {
+  cursor:text ;
+}
 /* ── Keyframe Animations ───────────────── */
 @keyframes pulse {
   0%,
