@@ -105,17 +105,21 @@ export default function Sidebar() {
         </div>
       </nav>
 
-      {/* User Section */}
+      {/* User Section — links to /settings */}
       <div className="p-4 border-t border-border">
-        <div className="flex items-center gap-3 px-2">
-          <div className="w-8 h-8 rounded-full bg-blue flex items-center justify-center font-mono text-[11px] font-bold text-white">
+        <Link
+          href="/settings"
+          className="flex items-center gap-3 px-2 rounded-md hover:bg-bg-surface/60 transition-colors py-1 group"
+          title="Go to Settings"
+        >
+          <div className="w-8 h-8 rounded-full bg-blue flex items-center justify-center font-mono text-[11px] font-bold text-white shrink-0 group-hover:ring-2 group-hover:ring-cyan/40 transition-all">
             JD
           </div>
           <div className="flex flex-col min-w-0">
             <span className="text-sm font-medium truncate">Jane Doe</span>
-            <span className="text-[11px] text-muted font-mono truncate">Admin</span>
+            <span className="text-[11px] text-muted font-mono truncate">Admin · Settings →</span>
           </div>
-        </div>
+        </Link>
       </div>
     </aside>
   );
