@@ -63,9 +63,13 @@ export default function SignInPage() {
         <div
           style={{
             background: 'var(--bg-card)',
-            border: '1px solid var(--border)',
+            border: '3px solid rgba(59,130,246,0.6)',
             borderRadius: 16,
             padding: 36,
+            boxShadow: `
+    0 0 25px rgba(54, 123, 152, 0.5),
+    0 0 25px rgba(37,99,235,0.35)
+  `,
           }}
         >
           <h1 style={{ fontWeight: 800, fontSize: 28, marginBottom: 8 }}>Welcome back</h1>

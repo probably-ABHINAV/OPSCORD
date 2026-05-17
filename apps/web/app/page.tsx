@@ -7,6 +7,7 @@ import dynamic from 'next/dynamic';
 import CounterStat from '@/components/CounterStat';
 import { EVENTS, INTEGRATION_LOGOS } from '@/lib/mockData';
 import { FOOTER_NAV_ITEMS, SITE_CONFIG } from './src/config/site';
+import BuildingInPublicTimeline from '@/components/BuildingInPublicTimeline';
 
 const CanvasBackground = dynamic(() => import('@/components/CanvasBackground'), { ssr: false });
 const EventFeed = dynamic(() => import('@/components/EventFeed'), {
@@ -401,14 +402,14 @@ export default function LandingPage() {
 
             <Link
               href="/analyzer"
-              className="inline-flex rounded-lg border border-[rgba(99,102,241,0.3)] bg-[rgba(99,102,241,0.1)] px-3 py-2 text-sm text-[#818cf8] transition-colors"
+              className="inline-flex rounded-lg border border-[rgba(99,102,241,0.3)] bg-[rgba(99,102,241,0.1)] px-3 py-2 text-sm text-[#818cf8] transition-all duration-300 hover:scale-105 hover:border-cyan-300 hover:text-white hover:bg-cyan-400/5 hover:shadow-[0_0_0_1px_#67e8f9,0_0_8px_#22d3ee]"
             >
               Code Analyzer
             </Link>
 
             <Link
               href="/sign-in"
-              className="inline-flex rounded-lg border border-border px-3 py-2 text-sm text-text transition-colors"
+              className="inline-flex rounded-lg border border-[rgba(99,102,241,0.3)] bg-[rgba(99,102,241,0.1)] px-3 py-2 text-sm text-[#818cf8] transition-all duration-300 hover:scale-105 hover:border-cyan-300 hover:text-white hover:bg-cyan-400/5 hover:shadow-[0_0_0_1px_#67e8f9,0_0_8px_#22d3ee]"
             >
               Sign In
             </Link>
@@ -416,7 +417,7 @@ export default function LandingPage() {
 
           <Link
             href="/sign-up"
-            className="hidden sm:inline-flex items-center rounded-xl bg-gradient-to-br from-blue-500 to-violet-500 px-3 py-2 text-sm font-semibold text-white shadow-[0_0_20px_rgba(99,102,241,0.3)]"
+            className="inline-flex rounded-lg border border-[rgba(99,102,241,0.3)] bg-[rgba(99,102,241,0.1)] px-3 py-2 text-sm text-[#818cf8] transition-all duration-300 hover:scale-105 hover:border-cyan-300 hover:text-white hover:bg-cyan-400/5 hover:shadow-[0_0_0_1px_#67e8f9,0_0_8px_#22d3ee]"
           >
             Get Early Access →
           </Link>
@@ -505,7 +506,7 @@ export default function LandingPage() {
           <p
             style={{
               fontSize: 'clamp(14px, 2.5vw, 19px)',
-              color: 'var(--muted)',
+              color: '#94a3b8',
               maxWidth: 540,
               padding: '0 8px',
               margin: '24px auto 0',
@@ -546,16 +547,18 @@ export default function LandingPage() {
               Request Demo →
             </a>
             <button
+              className="glow-btn"
               onClick={() => setArchOpen(true)}
               style={{
-                background: 'transparent',
-                border: '1px solid var(--border)',
-                color: 'var(--text)',
+                background: 'linear-gradient(135deg, #3b82f6, #7c3aed)',
+                color: 'white',
                 padding: '15px 34px',
                 borderRadius: 10,
+                fontWeight: 700,
                 fontSize: 15,
-                cursor: 'pointer',
-                transition: 'border-color 0.2s',
+                textDecoration: 'none',
+                boxShadow: '0 0 32px rgba(99,102,241,0.4)',
+                display: 'inline-block',
               }}
             >
               View Architecture ↗
@@ -1081,9 +1084,11 @@ export default function LandingPage() {
 
           <div
             style={{
+              backgroundColor: 'rgba(168, 85, 247, 0.08)',
+              border: '1px solid #a855f7',
+              boxShadow: '0 0 10px rgba(168, 85, 247, 0.6)',
               display: 'grid',
               gridTemplateColumns: 'repeat(4, 1fr)',
-              border: '1px solid var(--border)',
               borderRadius: 16,
               overflow: 'hidden',
             }}
@@ -1120,14 +1125,13 @@ export default function LandingPage() {
             ].map((step, i) => (
               <div
                 key={i}
+                className="step-card"
                 style={{
                   padding: '32px 24px',
                   borderRight: i < 3 ? '1px solid var(--border)' : undefined,
                   transition: 'background 0.2s',
                   cursor: 'default',
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.03)')}
-                onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
               >
                 <div
                   style={{
@@ -1139,11 +1143,21 @@ export default function LandingPage() {
                 >
                   STEP {step.num}
                 </div>
-                <div style={{ fontSize: 30, marginBottom: 12 }}>{step.icon}</div>
-                <div style={{ fontWeight: 700, fontSize: 16, color: step.color, marginBottom: 8 }}>
+                <div className="step-icon" style={{ fontSize: 30, marginBottom: 12 }}>
+                  {step.icon}
+                </div>
+                <div
+                  className="step-label"
+                  style={{ fontWeight: 700, fontSize: 16, color: step.color, marginBottom: 8 }}
+                >
                   {step.label}
                 </div>
-                <p style={{ fontSize: 13, color: 'var(--muted)', lineHeight: 1.65 }}>{step.body}</p>
+                <p
+                  className="step-body"
+                  style={{ fontSize: 13, color: 'var(--muted)', lineHeight: 1.65 }}
+                >
+                  {step.body}
+                </p>
               </div>
             ))}
           </div>
@@ -1574,54 +1588,7 @@ export default function LandingPage() {
             </button>
           </form>
 
-          <div
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              justifyContent: 'center',
-              gap: 8,
-              marginTop: 24,
-            }}
-          >
-            {[
-              { label: '✓ Architecture Complete', type: 'green' },
-              { label: '✓ Event Ingestion', type: 'green' },
-              { label: '✓ Auth (Stack Auth)', type: 'green' },
-              { label: '◎ Causality Engine', type: 'amber' },
-              { label: '○ Production Deploy', type: 'dim' },
-              { label: '○ Beta Launch', type: 'dim' },
-            ].map((pill) => (
-              <span
-                key={pill.label}
-                style={{
-                  fontSize: 12,
-                  fontWeight: 600,
-                  padding: '7px 14px',
-                  borderRadius: 20,
-                  ...(pill.type === 'green'
-                    ? {
-                        background: 'rgba(16,185,129,0.12)',
-                        border: '1px solid rgba(16,185,129,0.3)',
-                        color: '#6ee7b7',
-                      }
-                    : pill.type === 'amber'
-                      ? {
-                          background: 'rgba(251,191,36,0.12)',
-                          border: '1px solid rgba(251,191,36,0.3)',
-                          color: '#fcd34d',
-                          animation: 'pulseGlow 2s infinite',
-                        }
-                      : {
-                          background: 'rgba(255,255,255,0.05)',
-                          border: '1px solid rgba(255,255,255,0.1)',
-                          color: 'var(--muted)',
-                        }),
-                }}
-              >
-                {pill.label}
-              </span>
-            ))}
-          </div>
+          <BuildingInPublicTimeline />
         </div>
       </section>
 
