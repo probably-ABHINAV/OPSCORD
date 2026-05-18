@@ -60,20 +60,53 @@ export default function SignUpPage() {
 
         <div
           style={{
-            background: 'var(--bg-card)',
-            border: '3px solid rgba(59,130,246,0.6)',
-            borderRadius: 16,
-            padding: 36,
-            boxShadow: `
-    0 0 25px rgba(56,189,248,0.5),
-    0 0 25px rgba(37,99,235,0.35)
-  `,
+            background: 'rgba(8,16,36,0.92)',
+            border: '1px solid rgba(99,139,255,0.15)',
+            borderRadius: 20,
+            padding: '32px 24px',
+            backdropFilter: 'blur(16px)',
+            boxShadow: '0 0 40px rgba(99,102,241,0.12)',
           }}
         >
-          <h1 style={{ fontWeight: 800, fontSize: 28, marginBottom: 8 }}>Create your account</h1>
+          <div
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 8,
+              background: 'rgba(124,58,237,0.12)',
+              border: '1px solid rgba(124,58,237,0.25)',
+              borderRadius: 999,
+              padding: '6px 12px',
+              marginBottom: 18,
+              fontSize: 11,
+              fontFamily: 'var(--font-space-mono)',
+              color: '#c4b5fd',
+              letterSpacing: '0.08em',
+            }}
+          >
+            EARLY ACCESS
+          </div>
+          <h1
+            style={{
+              fontWeight: 800,
+              fontSize: 32,
+              letterSpacing: '-0.03em',
+              lineHeight: 1.1,
+              marginBottom: 8,
+            }}
+          >
+            Create your account
+          </h1>
           <p style={{ color: 'var(--muted)', fontSize: 14, marginBottom: 28 }}>
             Join OpsCord early access
           </p>
+          <div
+            style={{
+              height: 1,
+              background: 'rgba(255,255,255,0.06)',
+              margin: '20px 0',
+            }}
+          />
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
             <div>
@@ -94,6 +127,15 @@ export default function SignUpPage() {
                   color: 'var(--text)',
                   fontSize: 14,
                   outline: 'none',
+                  transition: 'all 0.2s ease',
+                }}
+                onFocus={(e) => {
+                  e.currentTarget.style.borderColor = '#38bdf8';
+                  e.currentTarget.style.boxShadow = '0 0 0 3px rgba(56,189,248,0.15)';
+                }}
+                onBlur={(e) => {
+                  e.currentTarget.style.borderColor = 'var(--border)';
+                  e.currentTarget.style.boxShadow = 'none';
                 }}
               />
             </div>
@@ -115,6 +157,15 @@ export default function SignUpPage() {
                   color: 'var(--text)',
                   fontSize: 14,
                   outline: 'none',
+                  transition: 'all 0.2s ease',
+                }}
+                onFocus={(e) => {
+                  e.currentTarget.style.borderColor = '#38bdf8';
+                  e.currentTarget.style.boxShadow = '0 0 0 3px rgba(56,189,248,0.15)';
+                }}
+                onBlur={(e) => {
+                  e.currentTarget.style.borderColor = 'var(--border)';
+                  e.currentTarget.style.boxShadow = 'none';
                 }}
               />
             </div>
@@ -136,6 +187,15 @@ export default function SignUpPage() {
                   color: 'var(--text)',
                   fontSize: 14,
                   outline: 'none',
+                  transition: 'all 0.2s ease',
+                }}
+                onFocus={(e) => {
+                  e.currentTarget.style.borderColor = '#38bdf8';
+                  e.currentTarget.style.boxShadow = '0 0 0 3px rgba(56,189,248,0.15)';
+                }}
+                onBlur={(e) => {
+                  e.currentTarget.style.borderColor = 'var(--border)';
+                  e.currentTarget.style.boxShadow = 'none';
                 }}
               />
             </div>
@@ -157,6 +217,15 @@ export default function SignUpPage() {
                 boxShadow: '0 0 20px rgba(99,102,241,0.3)',
                 cursor: 'pointer',
                 marginTop: 4,
+                transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = '0 0 28px rgba(99,102,241,0.45)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 0 20px rgba(99,102,241,0.3)';
               }}
             >
               Create Account
@@ -164,6 +233,18 @@ export default function SignUpPage() {
           </div>
 
           <p style={{ textAlign: 'center', fontSize: 13, color: 'var(--muted)', marginTop: 24 }}>
+            <p
+              style={{
+                textAlign: 'center',
+                fontSize: 11,
+                color: 'var(--muted)',
+                marginTop: 18,
+                fontFamily: 'var(--font-space-mono)',
+                letterSpacing: '0.05em',
+              }}
+            >
+              Enterprise onboarding • Secure authentication
+            </p>
             Already have an account?{' '}
             <Link href="/sign-in" style={{ color: 'var(--sky)', textDecoration: 'none' }}>
               Sign in →
