@@ -13,7 +13,6 @@ export default function InfrastructureLoading() {
         <div className="h-7 w-40 animate-pulse rounded bg-white/5" />
         <div className="h-4 w-64 animate-pulse rounded bg-white/5" />
       </div>
-
       {/* Status summary pills */}
       <div className="flex gap-4">
         {Array.from({ length: 3 }).map((_, i) => (
@@ -23,7 +22,6 @@ export default function InfrastructureLoading() {
           />
         ))}
       </div>
-
       {/* 2-column service grid — 8 cards matching mock data length */}
       <div className="grid grid-cols-2 gap-4">
         {Array.from({ length: 8 }).map((_, i) => (
