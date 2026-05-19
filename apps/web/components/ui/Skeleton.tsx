@@ -11,9 +11,5 @@ interface SkeletonProps {
  * Use this to build more specific skeleton components.
  */
 export function Skeleton({ className = '' }: SkeletonProps) {
-  return (
-    <div
-      className={`animate-pulse rounded bg-white/5 ${className}`}
-    />
-  );
+  return <div className={`animate-pulse rounded bg-white/5 ${className}`} />;
 }
