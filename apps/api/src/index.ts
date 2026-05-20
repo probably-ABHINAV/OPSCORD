@@ -23,11 +23,15 @@ app.get('/health', async (c) => {
 
 // Example route
 app.get('/projects', async (c) => {
-  const projects = await prisma.project.findMany();
-  return c.json({
-    success: true,
-    data: projects,
-  });
+  try {
+    const projects = await prisma.project.findMany();
+    return c.json({
+      success: true,
+      data: projects,
+    });
+  } catch (error) {
+    return c.json({ success: false, error: 'Failed to fetch projects' }, 500);
+  }
 });
 
 const port = process.env.PORT ? parseInt(process.env.PORT, 10) : 4000;
