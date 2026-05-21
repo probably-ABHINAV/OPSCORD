@@ -139,6 +139,13 @@ export default function SignUpPage() {
           <p style={{ color: 'var(--muted)', fontSize: 13, marginBottom: 28, lineHeight: 1.6 }}>
             Join OpsCord early access — AI-powered incident intelligence for your stack.
           </p>
+          <div
+            style={{
+              height: 1,
+              background: 'rgba(255,255,255,0.06)',
+              margin: '20px 0',
+            }}
+          />
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             {/* Full Name field */}

@@ -136,9 +136,16 @@ export default function SignInPage() {
           >
             Welcome back
           </h1>
-          <p style={{ color: 'var(--muted)', fontSize: 13, marginBottom: 28, lineHeight: 1.6 }}>
-            Sign in to your OpsCord dashboard and resume incident command.
+          <p style={{ color: 'var(--muted)', fontSize: 14, marginBottom: 28 }}>
+            Sign in to your OpsCord dashboard
           </p>
+          <div
+            style={{
+              height: 1,
+              background: 'rgba(255,255,255,0.06)',
+              margin: '20px 0',
+            }}
+          />
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             {/* Email field */}
@@ -204,7 +211,7 @@ export default function SignInPage() {
               <input
                 id="signin-password"
                 type="password"
-                placeholder="••••••••"
+                placeholder="you@company.com"
                 style={{
                   width: '100%',
                   background: 'rgba(255,255,255,0.04)',
