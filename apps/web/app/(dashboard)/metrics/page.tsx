@@ -76,21 +76,34 @@ export default function MetricsPage() {
           value="24,847"
           change="12% from yesterday"
           changeType="up"
+          tooltip="Total number of events processed in the selected period"
         />
+
         <MetricCard
           label="Avg Latency (p99)"
           value="312"
           unit="ms"
           change="8% improvement"
           changeType="down"
+          tooltip="Average response latency measured at p99 percentile"
         />
-        <MetricCard label="Error Rate" value="0.42" unit="%" change="Stable" changeType="neutral" />
+
+        <MetricCard
+          label="Error Rate"
+          value="0.42"
+          unit="%"
+          change="Stable"
+          changeType="neutral"
+          tooltip="Percentage of failed requests in the monitored system"
+        />
+
         <MetricCard
           label="Uptime"
           value="99.97"
           unit="%"
           change="SLA target: 99.9%"
           changeType="neutral"
+          tooltip="Percentage of time the service remained operational"
         />
       </div>
 
