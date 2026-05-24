@@ -93,6 +93,7 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
 
 /* ── Inline Event Card for Hero ───────────── */
 function MiniEventPreview() {
+  const isMobile = window.innerWidth < 768;
   const [events, setEvents] = useState(EVENTS.slice(0, 3));
   const [count, setCount] = useState(1247);
 
@@ -109,11 +110,11 @@ function MiniEventPreview() {
     <div
       style={{
         maxWidth: 520,
-        margin: '48px auto 0',
+        margin: isMobile ? '32px auto 0' : '48px auto 0',
         background: 'rgba(8,16,36,0.92)',
         border: '1px solid rgba(99,139,255,0.15)',
         borderRadius: 14,
-        padding: '16px 20px',
+        padding: isMobile ? '12px 14px' : '16px 20px',
         backdropFilter: 'blur(12px)',
         textAlign: 'left',
       }}
@@ -164,7 +165,7 @@ function MiniEventPreview() {
               fontFamily: 'var(--font-space-mono)',
               fontSize: 11,
               color: ev.color,
-              minWidth: 55,
+              minWidth: isMobile ? 42 : 55,
             }}
           >
             {ev.src}
@@ -185,7 +186,7 @@ function MiniEventPreview() {
           </span>
           <span
             style={{
-              fontSize: 12,
+              fontSize: isMobile ? 10 : 12,
               color: 'var(--muted)',
               overflow: 'hidden',
               textOverflow: 'ellipsis',
@@ -448,7 +449,7 @@ export default function LandingPage() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          padding: '32px 16px 60px',
+          padding: isMobile ? '24px 12px 48px' : '32px 16px 60px',
           textAlign: 'center',
         }}
       >
@@ -459,8 +460,8 @@ export default function LandingPage() {
             position: 'relative',
             zIndex: 2,
             maxWidth: 800,
+            padding: isMobile ? '0 4px' : '0 8px',
             width: '100%',
-            padding: '0 8px',
           }}
         >
           <div
