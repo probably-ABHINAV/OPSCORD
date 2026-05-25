@@ -3,14 +3,12 @@
 const milestones = [
   {
     label: 'Architecture Complete',
-    description:
-      'System design, microservices structure and data flow finalized.',
+    description: 'System design, microservices structure and data flow finalized.',
     status: 'complete',
   },
   {
     label: 'Event Ingestion',
-    description:
-      'Webhooks and polling from CircleCI, GitHub, K8s and Datadog live.',
+    description: 'Webhooks and polling from CircleCI, GitHub, K8s and Datadog live.',
     status: 'complete',
   },
   {
@@ -43,16 +41,8 @@ export default function BuildingInPublicTimeline() {
         const isActive = milestone.status === 'active';
         const isLast = i === milestones.length - 1;
 
-        const dotColor = isComplete
-          ? '#10b981'
-          : isActive
-            ? '#fbbf24'
-            : 'rgba(255,255,255,0.15)';
-        const labelColor = isComplete
-          ? '#6ee7b7'
-          : isActive
-            ? '#fcd34d'
-            : 'var(--muted)';
+        const dotColor = isComplete ? '#10b981' : isActive ? '#fbbf24' : 'rgba(255,255,255,0.15)';
+        const labelColor = isComplete ? '#6ee7b7' : isActive ? '#fcd34d' : 'var(--muted)';
         const borderColor = isComplete
           ? 'rgba(16,185,129,0.3)'
           : isActive
@@ -132,8 +122,7 @@ export default function BuildingInPublicTimeline() {
                     color: labelColor,
                   }}
                 >
-                  {isComplete ? '✓' : isActive ? '◎' : '○'}{' '}
-                  {milestone.label}
+                  {isComplete ? '✓' : isActive ? '◎' : '○'} {milestone.label}
                 </span>
                 {isActive && (
                   <span
