@@ -1,172 +1,54 @@
 'use client';
 
-import React from 'react';
-import Link from 'next/link';
+import { useState } from 'react';
 
-export default function SignUpPage() {
+export default function Page() {
+  const [email, setEmail] = useState('');
+
+  const handleWaitlist = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!email) return;
+
+    try {
+      const res = await fetch('http://localhost:4000/api/v1/waitlist', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        alert("You're on the waitlist!");
+        setEmail('');
+      } else {
+        alert('Failed to join waitlist');
+        console.log(data);
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Error joining waitlist');
+    }
+  };
+
   return (
-    <div
-      style={{
-        minHeight: '100vh',
-        background: 'var(--bg-primary)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        position: 'relative',
-        overflow: 'hidden',
-      }}
-    >
-      {/* Background glows */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '-20%',
-          left: '-10%',
-          width: '50%',
-          height: '50%',
-          background: 'radial-gradient(circle, rgba(37,99,235,0.15), transparent 70%)',
-          pointerEvents: 'none',
-        }}
-      />
-      <div
-        style={{
-          position: 'absolute',
-          bottom: '-20%',
-          right: '-10%',
-          width: '50%',
-          height: '50%',
-          background: 'radial-gradient(circle, rgba(124,58,237,0.1), transparent 70%)',
-          pointerEvents: 'none',
-        }}
-      />
+    <div style={{ padding: 40 }}>
+      <h1>Join Waitlist</h1>
 
-      <div
-        style={{ position: 'relative', zIndex: 1, width: '100%', maxWidth: 420, padding: '0 20px' }}
-      >
-        <div style={{ textAlign: 'center', marginBottom: 32 }}>
-          <Link href="/" style={{ textDecoration: 'none' }}>
-            <span
-              className="gradient-text"
-              style={{
-                fontFamily: 'var(--font-space-mono)',
-                fontSize: 28,
-                fontWeight: 700,
-              }}
-            >
-              OpsCord
-            </span>
-          </Link>
-        </div>
+      <form onSubmit={handleWaitlist} style={{ display: 'flex', gap: 10 }}>
+        <input
+          type="email"
+          placeholder="Enter email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          style={{ padding: 10 }}
+        />
 
-        <div
-          style={{
-            background: 'var(--bg-card)',
-            border: '1px solid var(--border)',
-            borderRadius: 16,
-            padding: 36,
-          }}
-        >
-          <h1 style={{ fontWeight: 800, fontSize: 28, marginBottom: 8 }}>Create your account</h1>
-          <p style={{ color: 'var(--muted)', fontSize: 14, marginBottom: 28 }}>
-            Join OpsCord early access
-          </p>
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-            <div>
-              <label
-                style={{ display: 'block', fontSize: 13, color: 'var(--muted)', marginBottom: 6 }}
-              >
-                Full Name
-              </label>
-              <input
-                type="text"
-                placeholder="Jane Doe"
-                style={{
-                  width: '100%',
-                  background: 'rgba(255,255,255,0.06)',
-                  border: '1px solid var(--border)',
-                  borderRadius: 10,
-                  padding: '12px 16px',
-                  color: 'var(--text)',
-                  fontSize: 14,
-                  outline: 'none',
-                }}
-              />
-            </div>
-            <div>
-              <label
-                style={{ display: 'block', fontSize: 13, color: 'var(--muted)', marginBottom: 6 }}
-              >
-                Email
-              </label>
-              <input
-                type="email"
-                placeholder="you@company.com"
-                style={{
-                  width: '100%',
-                  background: 'rgba(255,255,255,0.06)',
-                  border: '1px solid var(--border)',
-                  borderRadius: 10,
-                  padding: '12px 16px',
-                  color: 'var(--text)',
-                  fontSize: 14,
-                  outline: 'none',
-                }}
-              />
-            </div>
-            <div>
-              <label
-                style={{ display: 'block', fontSize: 13, color: 'var(--muted)', marginBottom: 6 }}
-              >
-                Password
-              </label>
-              <input
-                type="password"
-                placeholder="••••••••"
-                style={{
-                  width: '100%',
-                  background: 'rgba(255,255,255,0.06)',
-                  border: '1px solid var(--border)',
-                  borderRadius: 10,
-                  padding: '12px 16px',
-                  color: 'var(--text)',
-                  fontSize: 14,
-                  outline: 'none',
-                }}
-              />
-            </div>
-            <Link
-              href="/dashboard"
-              className="glow-btn"
-              style={{
-                display: 'block',
-                width: '100%',
-                background: 'linear-gradient(135deg, #3b82f6, #7c3aed)',
-                color: 'white',
-                fontWeight: 700,
-                padding: '14px',
-                borderRadius: 10,
-                border: 'none',
-                fontSize: 15,
-                textAlign: 'center',
-                textDecoration: 'none',
-                boxShadow: '0 0 20px rgba(99,102,241,0.3)',
-                cursor: 'pointer',
-                marginTop: 4,
-              }}
-            >
-              Create Account
-            </Link>
-          </div>
-
-          <p style={{ textAlign: 'center', fontSize: 13, color: 'var(--muted)', marginTop: 24 }}>
-            Already have an account?{' '}
-            <Link href="/sign-in" style={{ color: 'var(--sky)', textDecoration: 'none' }}>
-              Sign in →
-            </Link>
-          </p>
-        </div>
-      </div>
+        <button type="submit">Join</button>
+      </form>
     </div>
   );
 }

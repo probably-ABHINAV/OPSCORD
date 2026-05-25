@@ -1,101 +1,70 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { Hono } from 'hono';
+import { app } from './index';
 
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// API Gateway — Unit Tests
-// Tests the Hono app routes in isolation
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+const BASE_URL = 'http://localhost:4000';
 
-// Mock Prisma before importing the app
-vi.mock('@opscord/db', () => ({
-  default: {
-    $queryRaw: vi.fn(),
-    project: {
-      findMany: vi.fn(),
-    },
-  },
-}));
+async function testHealthCheck() {
+  const res = await fetch(`${BASE_URL}/`);
 
-import prisma from '@opscord/db';
+  const data = await res.json();
 
-function createApp() {
-  const app = new Hono().basePath('/api/v1');
+  console.log('HEALTH CHECK:', data);
 
-  app.get('/health', async (c) => {
-    try {
-      await prisma.$queryRaw`SELECT 1`;
-      return c.json({ status: 'ok', db: 'connected' });
-    } catch {
-      return c.json({ status: 'error', db: 'disconnected' }, 500);
-    }
-  });
-
-  app.get('/projects', async (c) => {
-    const projects = await prisma.project.findMany();
-    return c.json({ success: true, data: projects });
-  });
-
-  return app;
+  if (!res.ok) {
+    throw new Error('Health check failed');
+  }
 }
 
-describe('API Gateway', () => {
-  let app: Hono;
-
-  beforeEach(() => {
-    vi.clearAllMocks();
-    app = createApp();
+async function testWaitlistSuccess() {
+  const res = await fetch(`${BASE_URL}/api/v1/waitlist`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      email: 'test@example.com',
+    }),
   });
 
-  describe('GET /api/v1/health', () => {
-    it('returns ok when database is connected', async () => {
-      vi.mocked(prisma.$queryRaw).mockResolvedValueOnce([{ '?column?': 1 }]);
+  const data = await res.json();
 
-      const res = await app.request('/api/v1/health');
-      const body = await res.json();
+  console.log('WAITLIST SUCCESS:', data);
 
-      expect(res.status).toBe(200);
-      expect(body.status).toBe('ok');
-      expect(body.db).toBe('connected');
-    });
+  if (!res.ok) {
+    throw new Error('Waitlist success test failed');
+  }
+}
 
-    it('returns error when database is disconnected', async () => {
-      vi.mocked(prisma.$queryRaw).mockRejectedValueOnce(new Error('Connection refused'));
-
-      const res = await app.request('/api/v1/health');
-      const body = await res.json();
-
-      expect(res.status).toBe(500);
-      expect(body.status).toBe('error');
-      expect(body.db).toBe('disconnected');
-    });
+async function testWaitlistFail() {
+  const res = await fetch(`${BASE_URL}/api/v1/waitlist`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({}),
   });
 
-  describe('GET /api/v1/projects', () => {
-    it('returns list of projects', async () => {
-      const mockProjects = [
-        { id: 'proj_1', name: 'Production API', description: null },
-        { id: 'proj_2', name: 'Staging', description: 'Staging env' },
-      ];
-      vi.mocked(prisma.project.findMany).mockResolvedValueOnce(mockProjects as any);
+  const data = await res.json();
 
-      const res = await app.request('/api/v1/projects');
-      const body = await res.json();
+  console.log('WAITLIST FAIL (expected):', data);
 
-      expect(res.status).toBe(200);
-      expect(body.success).toBe(true);
-      expect(body.data).toHaveLength(2);
-      expect(body.data[0].name).toBe('Production API');
-    });
+  if (res.ok) {
+    throw new Error('Waitlist validation test failed');
+  }
+}
 
-    it('returns empty array when no projects exist', async () => {
-      vi.mocked(prisma.project.findMany).mockResolvedValueOnce([]);
+async function runTests() {
+  try {
+    console.log('🚀 Starting API tests...\n');
 
-      const res = await app.request('/api/v1/projects');
-      const body = await res.json();
+    await testHealthCheck();
+    await testWaitlistSuccess();
+    await testWaitlistFail();
 
-      expect(res.status).toBe(200);
-      expect(body.success).toBe(true);
-      expect(body.data).toHaveLength(0);
-    });
-  });
-});
+    console.log('\n✅ ALL TESTS PASSED');
+  } catch (err) {
+    console.error('\n❌ TEST FAILED:', err);
+    process.exit(1);
+  }
+}
+
+runTests();

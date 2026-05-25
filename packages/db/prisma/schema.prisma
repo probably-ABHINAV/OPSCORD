@@ -8,7 +8,7 @@ generator client {
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+
 }
 
 // -----------------------------------------
@@ -158,4 +158,9 @@ model AlertRule {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+model WaitlistUser {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
 }
