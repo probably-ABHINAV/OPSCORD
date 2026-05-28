@@ -17,33 +17,11 @@ vi.mock('@opscord/db', () => ({
 }));
 
 import prisma from '@opscord/db';
-
-function createApp() {
-  const app = new Hono().basePath('/api/v1');
-
-  app.get('/health', async (c) => {
-    try {
-      await prisma.$queryRaw`SELECT 1`;
-      return c.json({ status: 'ok', db: 'connected' });
-    } catch {
-      return c.json({ status: 'error', db: 'disconnected' }, 500);
-    }
-  });
-
-  app.get('/projects', async (c) => {
-    const projects = await prisma.project.findMany();
-    return c.json({ success: true, data: projects });
-  });
-
-  return app;
-}
+import { app } from './app';
 
 describe('API Gateway', () => {
-  let app: Hono;
-
   beforeEach(() => {
     vi.clearAllMocks();
-    app = createApp();
   });
 
   describe('GET /api/v1/health', () => {

@@ -10,31 +10,11 @@ vi.mock('@opscord/db', () => ({
   default: {},
 }));
 
-function createApp() {
-  const app = new Hono().basePath('/api/v1/ingest');
-
-  app.get('/health', (c) => c.json({ status: 'ok', service: 'ingestion' }));
-
-  app.post('/:source', async (c) => {
-    const source = c.req.param('source');
-    const payload = await c.req.json();
-
-    if (!payload || Object.keys(payload).length === 0) {
-      return c.json({ success: false, message: 'Empty payload' }, 400);
-    }
-
-    return c.json({ success: true, message: 'Webhook received and queued for processing.' }, 202);
-  });
-
-  return app;
-}
+import { app } from './app';
 
 describe('Ingestion Service', () => {
-  let app: Hono;
-
   beforeEach(() => {
     vi.clearAllMocks();
-    app = createApp();
   });
 
   describe('GET /api/v1/ingest/health', () => {
