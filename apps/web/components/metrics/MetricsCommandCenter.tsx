@@ -2,10 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { MetricTrendCard, MetricTrendCardProps } from './MetricTrendCard';
-import { useReplayStore } from '../../store/useReplayStore';
 
 export const MetricsCommandCenter: React.FC = () => {
-  const { timeOffset } = useReplayStore();
   const [liveEventAdd, setLiveEventAdd] = useState(0);
   const [liveCausalityVariance, setLiveCausalityVariance] = useState(0);
 
@@ -18,7 +16,7 @@ export const MetricsCommandCenter: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Determine values based on timeOffset (Incident occurred between -30m and Live)
+  const timeOffset = 0;
   const isPreIncident = timeOffset < -30;
 
   const incidentsVal = isPreIncident ? 0 : 3;
@@ -72,28 +70,6 @@ export const MetricsCommandCenter: React.FC = () => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 24 }}>
-      {/* Historical Playback warning banner */}
-      {timeOffset !== 0 && (
-        <div
-          style={{
-            background: 'rgba(251, 191, 36, 0.08)',
-            border: '1px solid rgba(251, 191, 36, 0.25)',
-            borderRadius: 8,
-            padding: '6px 12px',
-            fontSize: 11,
-            color: '#fbbf24',
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: 6,
-            fontWeight: 700,
-            fontFamily: 'var(--font-space-mono)',
-          }}
-        >
-          <span>⏳</span> HISTORICAL DATA REPLAY ENGINE ACTIVE (SCROLLING MOCK DATA FOR
-          VERIFICATION)
-        </div>
-      )}
-
       <div
         style={{
           display: 'grid',

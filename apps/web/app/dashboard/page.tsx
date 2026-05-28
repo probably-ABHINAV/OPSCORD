@@ -1,11 +1,20 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import dynamic from 'next/dynamic';
 import { INCIDENTS, CHART_DATA } from '@/lib/mockData';
 
 const EventFeed = dynamic(() => import('@/components/EventFeed'), { ssr: false });
 const SwarmActivity = dynamic(() => import('@/components/SwarmActivity'), { ssr: false });
+const MetricsCommandCenter = dynamic(
+  () => import('@/components/metrics/MetricsCommandCenter').then((mod) => mod.MetricsCommandCenter),
+  { ssr: false }
+);
+const InfrastructureGrid = dynamic(
+  () =>
+    import('@/components/infrastructure/InfrastructureGrid').then((mod) => mod.InfrastructureGrid),
+  { ssr: false }
+);
 
 /* ── Recharts (client-only) ─────────────── */
 const RechartsChart = dynamic(
@@ -81,89 +90,10 @@ const RechartsChart = dynamic(
 );
 
 export default function DashboardOverview() {
-  const [eventsCount, setEventsCount] = useState(1247);
-
-  useEffect(() => {
-    const iv = setInterval(() => {
-      setEventsCount((c) => c + Math.floor(Math.random() * 5) + 1);
-    }, 4000);
-    return () => clearInterval(iv);
-  }, []);
-
-  const statCards = [
-    {
-      icon: '⚠️',
-      number: '3',
-      label: 'Total Incidents Today',
-      footer: '↑ 2 from yesterday',
-      footerColor: '#ef4444',
-      numColor: '#ef4444',
-    },
-    {
-      icon: '⚡',
-      number: eventsCount.toLocaleString(),
-      label: 'Events Ingested',
-      footer: 'Last 24 hours',
-      footerColor: 'var(--muted)',
-      numColor: undefined,
-    },
-    {
-      icon: '🕐',
-      number: '4.2 min',
-      label: 'Avg Resolution Time',
-      footer: '↓ 38% vs last week',
-      footerColor: '#10b981',
-      numColor: '#f59e0b',
-    },
-    {
-      icon: '🎯',
-      number: '94%',
-      label: 'Causality Score Accuracy',
-      footer: 'Based on 47 incidents',
-      footerColor: 'var(--muted)',
-      numColor: '#10b981',
-    },
-  ];
-
   return (
     <div>
       {/* ── Stats Row ─────────────── */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(4, 1fr)',
-          gap: 16,
-          marginBottom: 24,
-        }}
-      >
-        {statCards.map((card, i) => (
-          <div key={i} className="card card-hover" style={{ borderRadius: 12, padding: 20 }}>
-            <div style={{ fontSize: 22, marginBottom: 8 }}>{card.icon}</div>
-            <div
-              className={!card.numColor ? 'gradient-text' : ''}
-              style={{
-                fontWeight: 800,
-                fontSize: 36,
-                lineHeight: 1,
-                color: card.numColor,
-              }}
-            >
-              {card.number}
-            </div>
-            <div style={{ color: 'var(--muted)', fontSize: 13, marginTop: 6 }}>{card.label}</div>
-            <div
-              style={{
-                fontSize: 11,
-                color: card.footerColor,
-                marginTop: 6,
-                fontFamily: 'var(--font-space-mono)',
-              }}
-            >
-              {card.footer}
-            </div>
-          </div>
-        ))}
-      </div>
+      <MetricsCommandCenter />
 
       {/* ── Main Grid ─────────────── */}
       <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 24 }}>
@@ -340,6 +270,11 @@ export default function DashboardOverview() {
                 </tbody>
               </table>
             </div>
+          </div>
+
+          {/* Infrastructure Health Grid */}
+          <div style={{ marginBottom: 24, display: 'flex' }}>
+            <InfrastructureGrid />
           </div>
 
           {/* Recharts Line Chart */}
