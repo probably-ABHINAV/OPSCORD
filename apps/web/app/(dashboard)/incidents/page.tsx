@@ -1,13 +1,22 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { INCIDENTS } from '@/lib/mockData';
 import AIInsightsDrawer from '@/components/domain/AIInsightsDrawer';
 import AlertTimeline from '@/components/domain/AlertTimeline';
+import IncidentsLoading from './loading';
 
 export default function IncidentsPage() {
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedIncident, setSelectedIncident] = useState<(typeof INCIDENTS)[0] | null>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) return <IncidentsLoading />;
 
   const handleAnalyze = (incident: (typeof INCIDENTS)[0]) => {
     setSelectedIncident(incident);

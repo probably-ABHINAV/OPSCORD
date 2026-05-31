@@ -1,6 +1,7 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import InfrastructureLoading from './loading';
 
 interface ServiceNode {
   name: string;
@@ -78,6 +79,15 @@ function UsageBar({ value, color }: { value: number; color: string }) {
 }
 
 export default function InfrastructurePage() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) return <InfrastructureLoading />;
+
   const healthyCount = SERVICES.filter((s) => s.status === 'healthy').length;
   const degradedCount = SERVICES.filter((s) => s.status === 'degraded').length;
   const downCount = SERVICES.filter((s) => s.status === 'down').length;
