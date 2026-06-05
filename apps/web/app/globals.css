@@ -96,6 +96,12 @@ body {
   cursor:text ;
 }
 /* ── Keyframe Animations ───────────────── */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @keyframes pulse {
   0%,
   100% {
@@ -243,4 +249,3 @@ body {
   background: rgba(0, 112, 243, 0.3);
   color: #EDEDED;
 }
-
