@@ -231,3 +231,4 @@ If you get:
 `@prisma/client did not initialize yet`
 
 the Prisma setup steps may be missing or incomplete.
+# TODO: [gssoc]: fix missing active state highlight in navbar navigation (#28)
