@@ -231,3 +231,4 @@ If you get:
 `@prisma/client did not initialize yet`
 
 the Prisma setup steps may be missing or incomplete.
+# TODO: [gssoc]: feat(auth): implement clerk authentication and route protection (#29)
