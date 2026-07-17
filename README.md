@@ -92,6 +92,8 @@ npx prisma db push --schema=packages/db/prisma/schema.prisma
 npm run dev
 ```
 
+> **Verification:** After the development server starts, verify that all services are reachable by opening the Dashboard (`http://localhost:3000`) and confirming that the API Gateway (`http://localhost:4000`) and Ingestion service (`http://localhost:4001`) respond successfully before beginning development.
+
 | Service     | URL                     |
 | ----------- | ----------------------- |
 | Dashboard   | `http://localhost:3000` |
