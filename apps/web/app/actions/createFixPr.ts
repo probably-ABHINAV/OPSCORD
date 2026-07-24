@@ -40,7 +40,7 @@ export async function createFixPr({
   try {
     // 1. Get Base Commit & Tree
     const refRes = await fetch(
-      `https://api.github.com/repos/${owner}/${repo}/git/ref/heads/${baseBranch}`,
+      `https://api.github.com/repos/${owner}/${repo}/git/refs/heads/${baseBranch}`,
       { headers }
     );
     if (!refRes.ok) throw new Error('Could not find base branch reference');

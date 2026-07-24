@@ -11,7 +11,7 @@ if (!apiKey) {
 
 const genAI = new GoogleGenerativeAI(apiKey || '');
 // Using the absolute most stable alias to bypass specific model naming issues
-const MODEL_NAME = 'gemini-flash-latest';
+const MODEL_NAME = 'models/gemini-1.5-flash-latest';
 
 export type AnalysisResult = {
   success: boolean;
