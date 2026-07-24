@@ -16,9 +16,9 @@ export async function POST(req: Request) {
       return NextResponse.json({ message: 'Ignored PR action.' });
     }
 
-    const owner = payload.repository.owner.login;
-    const repo = payload.repository.name;
-    const prNumber = payload.pull_request.number;
+    const owner = payload.repository?.owner?.login;
+    const repo = payload.repository?.name;
+    const prNumber = payload.pull_request?.number;
 
     // We pass the base repository URL to our analyzer
     const repoUrl = payload.repository.html_url;

@@ -87,12 +87,14 @@ export async function analyzeCode(githubUrl: string): Promise<AnalysisResult> {
         );
         if (historyRes.ok) {
           const historyJson = await historyRes.json();
-          commitHistoryContext = historyJson
-            .map(
+          if (Array.isArray(historyJson)) {
+            commitHistoryContext = historyJson
+              .map(
               (c: { commit: { message: string; author: { date: string } } }) =>
                 `- ${c.commit.message} (${c.commit.author.date})`
             )
             .join('\n');
+          }
         }
 
         // 2. Fetch repo tree
