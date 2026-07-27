@@ -60,7 +60,7 @@ export async function createFixPr({
       const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/git/blobs`, {
         method: 'POST',
         headers,
-        body: JSON.stringify({ content, encoding: 'utf-8' }),
+        body: JSON.stringify({ content: btoa(content), encoding: 'base64' }),
       });
       if (!res.ok) throw new Error('Failed to upload blob');
       const data = await res.json();

@@ -1,7 +1,6 @@
 import { serve } from '@hono/node-server';
 import { Hono } from 'hono';
 import { logger } from 'hono/logger';
-import prisma from '@opscord/db';
 
 const app = new Hono().basePath('/api/v1/ingest');
 
