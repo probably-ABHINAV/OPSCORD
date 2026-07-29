@@ -12,6 +12,7 @@ const RechartsChart = dynamic(
   () =>
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     import('recharts').then((mod: any) => {
+.catch(err => console.error(err))
       const { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } =
         mod;
 
