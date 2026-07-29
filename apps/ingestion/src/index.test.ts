@@ -40,7 +40,8 @@ describe('Ingestion Service', () => {
   describe('GET /api/v1/ingest/health', () => {
     it('returns healthy status', async () => {
       const res = await app.request('/api/v1/ingest/health');
-      const body = await res.json();
+      if (!res.ok) throw new Error("Request failed");
+const body = await res.json();
 
       expect(res.status).toBe(200);
       expect(body.status).toBe('ok');
@@ -60,7 +61,8 @@ describe('Ingestion Service', () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
-      const body = await res.json();
+      if (!res.ok) throw new Error("Request failed");
+const body = await res.json();
 
       expect(res.status).toBe(202);
       expect(body.success).toBe(true);
