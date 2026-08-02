@@ -149,7 +149,7 @@ export async function analyzeCode(githubUrl: string): Promise<AnalysisResult> {
       codeData = await res.text();
     }
 
-    if (!codeData || codeData.trim() === '') {
+    if (!codeData || codeData.trim().length === 0) {
       return { success: false, error: 'The fetched file is empty.' };
     }
 
