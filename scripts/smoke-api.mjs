@@ -1,0 +1,21 @@
+import assert from 'node:assert/strict';
+const base=process.argv[2]??'http://localhost:5173';
+if(!['localhost','127.0.0.1'].includes(new URL(base).hostname))throw Error('Smoke tests must target a local development server.');
+async function request(path,method='GET',body,expected=200){const r=await fetch(base+path,{method,headers:body?{'Content-Type':'application/json'}:undefined,body:body?JSON.stringify(body):undefined});const result=await r.json();assert.equal(r.status,expected,JSON.stringify(result));return result;}
+const demo=await request('/api/workspace');assert.equal(demo.events.length,12);assert.equal(demo.candidates[0].score,92);
+const incident=await request('/api/incidents','POST',{title:'API verification incident',service:'payment-api',severity:'warning',startedAt:new Date(Date.now()-120000).toISOString()},201);
+const route=`/api/incidents/${incident.id}`;
+const event={externalId:'verify-001',source:'cicd',type:'deployment',service:'payment-api',severity:'info',title:'Verification deployment',occurredAt:new Date(Date.now()-180000).toISOString(),metadata:{releaseId:'test-build'}};
+const saved=await request(route+'/events','POST',event,201);assert.equal(saved.duplicate,false);
+const duplicate=await request(route+'/events','POST',event);assert.equal(duplicate.id,saved.id);assert.equal(duplicate.duplicate,true);
+await request(route+'/events','POST',{...event,title:'Different event'},409);
+await request(route+'/events','POST',{...event,externalId:'future',occurredAt:new Date(Date.now()+3600000).toISOString()},400);
+await request(route,'PATCH',{status:'resolved',version:1},400);
+const updated=await request(route,'PATCH',{status:'investigating',version:1});assert.equal(updated.version,2);
+await request(route,'PATCH',{status:'resolved',version:1},409);
+await request(route+'/notes','POST',{body:'Persistence verified by local integration test.'},201);
+const reread=await request(`/api/workspace?incident=${incident.id}`);assert.equal(reread.events.length,1);assert.equal(reread.notes.length,1);assert.equal(reread.incident.status,'investigating');assert.equal(reread.candidates.length,1);
+await request(route,'PATCH',{status:'resolved',version:2,resolution:'Verification complete. Local test signals have recovered.'});
+await request('/api/incidents/nonexistent/events','POST',event,404);
+await request(route+'/events','POST',{...event,extra:true},400);
+console.log('PASS: seed, incident creation, ingestion, deduplication, collision, temporal validation, lifecycle, stale update, notes, persistence, not-found, schema validation.');
