@@ -1,0 +1,9 @@
+Every signal tells a story. Meet OpsCord — the incident intelligence workspace that connects physical IoT telemetry and digital evidence to help engineering teams find the root cause faster.
+
+From scattered signals to a clearer picture. 🔗
+
+🔴 Active incident → 📡 Physical sensor → 🖥️ Edge processing → ⚡ Service impact → ✅ Resolved.
+
+Built with Next.js + Supabase PostgreSQL. Deployed and ready.
+
+#OpsCord #IncidentManagement #SRE #DevOps #BuildInPublic

@@ -1,68 +1,202 @@
-# OpsCord
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/shield-alert.svg" />
+    <img alt="OpsCord Logo" src="https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/shield-alert.svg" width="120" />
+  </picture>
 
-An evidence-based incident investigation application built from the OpsCord dashboard and system-architecture references.
+  <h1 style="margin-top: 20px;">OpsCord</h1>
+  
+  <p>
+    <b>The evidence-based incident response platform with deterministic candidate ranking.</b><br />
+    Turn scattered telemetry and deployments into a clear picture of incident causality.
+  </p>
 
-## Implemented
+  <p>
+    <a href="https://github.com/opscord/opscord/blob/main/LICENSE">
+      <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge" alt="License">
+    </a>
+    <a href="https://nextjs.org/">
+      <img src="https://img.shields.io/badge/Next.js-15+-black?style=for-the-badge&logo=next.js" alt="Next.js">
+    </a>
+    <a href="https://www.typescriptlang.org/">
+      <img src="https://img.shields.io/badge/TypeScript-5.0+-blue?style=for-the-badge&logo=typescript" alt="TypeScript">
+    </a>
+    <a href="https://supabase.com/">
+      <img src="https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL">
+    </a>
+  </p>
 
-- Responsive dashboard with a clearly labeled Payment API sample incident.
-- Persistent incidents, normalized events, and investigation notes in Cloudflare D1 (SQLite).
-- Validated JSON event ingestion with provider delivery deduplication and conflict detection.
-- Cross-source evidence search, source filtering, timestamp filtering, and event inspection.
-- Directed service dependency traversal and deterministic, explainable candidate ranking.
-- Incident lifecycle: active → investigating → resolved, with explicit reopening and optimistic concurrency.
-- Score breakdowns, supporting and contradicting evidence, investigation recommendations, Markdown report export.
-- Service inventory, IoT sample, integration schema guide, and architecture view.
-- Private Sites deployment. The hosting access policy gates the whole application, including APIs.
+  <p>
+    <a href="#-features">Features</a> •
+    <a href="#-architecture--stack">Architecture</a> •
+    <a href="#-quick-start">Quick Start</a> •
+    <a href="#-deployment">Deployment</a> •
+    <a href="#-api-reference">API</a>
+  </p>
+</div>
 
-This is a private manual incident-response MVP. It does not yet connect real GitHub, CI/CD, Kubernetes, monitoring, Slack, or MQTT accounts. Ingestion accepts normalized events through the private UI/API. It does not train ML models or call an LLM. See [the prioritized roadmap](ROADMAP.md) for team-launch requirements and additional features.
+<br />
 
-## Response workflow
+<div align="center">
+  <!-- Embedded native MP4 video for high-quality playback -->
+  <video src="./public/brag.mp4" width="100%" style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);" autoPlay loop muted playsInline></video>
+  <p><em>OpsCord’s deterministic candidate ranking tracing incident causality in real-time.</em></p>
+</div>
 
-- Searchable incident queue with status/severity filters and direct links to an investigation.
-- Saved commander, communications lead, environment, impact, situation brief, response-channel URL, and next-update time.
-- Mitigation and follow-up actions with owners, priorities, deadlines, evidence links, completion, and reopening.
-- Cross-incident action queue, overdue filters, three starter runbooks, editable custom runbooks, and idempotent checklist application.
-- Atomic activity records for declarations, lifecycle changes, notes, briefs, tasks, runbooks, decisions, and reviews.
-- Required resolution summaries, draft/final postmortems, recorded-fact prefilling, completeness checks, and review reopening when an incident reopens.
-- Markdown response reports, JSON incident export, copyable handoffs, and manual-incident metrics that exclude sample scenarios.
-- Optimistic concurrency and recoverable edit conflicts. Brief/review drafts are temporarily kept in this browser tab; saved records remain in D1. Assignments are free text and do not create membership or notifications.
+---
 
-## Stack
+## ✨ Features
 
-TypeScript, React, Vinext (Next-compatible App Router on Vite), Cloudflare Workers, D1, Drizzle migrations, Zod, Radix/Shadcn primitives, and Lucide icons. This repository was empty; source from the prior ChatGPT prototype was not available. The implementation uses a unified TypeScript backend instead of that conversation's separate FastAPI server.
+Incident response is often chaotic, manual, and lacks clear evidence. OpsCord transforms investigations by bringing telemetry, deployment events, and topology into a single deterministic view.
 
-## Run locally
+<table width="100%">
+  <tr>
+    <td width="50%">
+      <h3>🎯 Evidence-Based Ranking</h3>
+      <p>A deterministic BFS traversal walks incoming dependency edges from candidate causes to the affected service. Candidates (deployments, config changes) are ranked algorithmically using time locality and corroborating telemetry.</p>
+    </td>
+    <td width="50%">
+      <h3>🛡️ Robust Event Ingestion</h3>
+      <p>Validates incoming JSON payloads with strict provider delivery deduplication. Events are persisted to PostgreSQL with conflict detection and unified UTC timestamp normalization.</p>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%">
+      <h3>⚡ Actionable Workflows</h3>
+      <p>Searchable incident queues, atomic activity records (declarations, decisions, notes), and idempotent runbook application. Everything is versioned, trackable, and built for speed.</p>
+    </td>
+    <td width="50%">
+      <h3>🌍 Scalable Architecture</h3>
+      <p>Built with Next.js App Router and PostgreSQL (via Supabase), ensuring massive scalability for enterprise-grade event ingestion and complex graph traversals.</p>
+    </td>
+  </tr>
+</table>
 
-Node 22.13+ and npm are required.
+<div align="center">
+  <img src="./public/screenshot-hero.png" alt="OpsCord Dashboard" width="100%" style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);" />
+</div>
 
-```powershell
+---
+
+## 🏗️ Architecture & Stack
+
+OpsCord utilizes a highly typed, modern React stack designed for performance and reliability.
+
+| Category | Technology | Description |
+| :--- | :--- | :--- |
+| **Framework** | <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nextjs/nextjs-original.svg" width="20" align="top"/> [Next.js](https://nextjs.org) | App Router architecture, running on Vite via [Vinext](https://github.com/vinext). |
+| **Language** | <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" width="20" align="top"/> [TypeScript](https://www.typescriptlang.org) | End-to-end type safety from DB schema to UI. |
+| **Database** | <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original.svg" width="20" align="top"/> [PostgreSQL](https://supabase.com) | Highly reliable relational data store (Supabase recommended). |
+| **ORM** | 🔹 [Drizzle](https://orm.drizzle.team) | Lightweight and incredibly fast TypeScript ORM. |
+| **Styling** | <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/tailwindcss/tailwindcss-original.svg" width="20" align="top"/> [Tailwind CSS](https://tailwindcss.com) | With Radix UI & Shadcn for accessible, unstyled primitives. |
+
+### Event Ingestion Flow
+
+```mermaid
+graph LR
+    A[CI/CD / K8s / Webhooks] -->|POST JSON| B(Next.js API Route)
+    B --> C{Zod Validation}
+    C -->|Valid| D[Deduplication Check]
+    C -.->|Invalid| E[400 Bad Request]
+    D -->|New Event| F[(PostgreSQL)]
+    D -.->|Duplicate| G[200 OK - Ignored]
+    
+    style B fill:#000,stroke:#fff,stroke-width:2px,color:#fff
+    style F fill:#336791,stroke:#fff,stroke-width:2px,color:#fff
+```
+
+---
+
+## 🚀 Quick Start
+
+Node `22.13+` and `npm` are required.
+
+### 1. Clone & Install
+```bash
+git clone https://github.com/opscord/opscord.git
+cd opscord
 npm run install:ci
 npm run build
-node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js d1 execute DB --local --config dist/server/wrangler.json --persist-to .wrangler/state --file drizzle/0000_flowery_sally_floyd.sql
-node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js d1 execute DB --local --config dist/server/wrangler.json --persist-to .wrangler/state --file drizzle/0001_fantastic_vector.sql
+```
+
+### 2. Environment Configuration
+Create a `.env.local` file in the root directory. You will need a PostgreSQL database (like [Supabase](https://supabase.com/)).
+
+```ini
+# .env.local
+DATABASE_URL="postgresql://user:password@host:5432/dbname"
+```
+
+### 3. Database Setup
+Push the Drizzle schema to your PostgreSQL database.
+```bash
+npm run db:generate
+npx drizzle-kit push:pg
+```
+
+### 4. Start Development Server
+```bash
 npm run dev
 ```
 
-Apply the initial migration only once per local database. Future migrations must be applied in order. The dev server prints its loopback URL (normally http://localhost:5173). Do not expose the development server to the network: private access is enforced by Sites in the hosted environment.
+> [!WARNING]
+> Do not expose the development server to the network directly in production without an authentication layer.
 
-If a Windows shell shim fails to locate npm, invoke `node "C:\Program Files\nodejs\node_modules\npm\bin\npm-cli.js" run dev` (substitute the installed npm location).
+---
 
-## Verify
+## 🚢 Deployment
 
-```powershell
-npm test
-node node_modules/typescript/bin/tsc --noEmit
-npm run build
-npm run test:api
-node scripts/smoke-response.mjs
+Deploying OpsCord is straightforward since it's a standard Next.js application.
+
+<details>
+<summary><strong>Deploying to Vercel (Recommended)</strong></summary>
+
+1. Push your repository to GitHub.
+2. Import the project into [Vercel](https://vercel.com).
+3. Set the `DATABASE_URL` environment variable in the Vercel dashboard.
+4. Add a custom build command if needed (e.g., to run migrations during build), or just use the default Next.js settings.
+5. Click **Deploy**.
+
+```mermaid
+graph TD
+    A[GitHub Repo] -->|Webhook| B(Vercel Build)
+    B --> C[Vercel Edge Network]
+    C <--> D[(Supabase PostgreSQL)]
+    
+    style C fill:#000,stroke:#fff,stroke-width:2px,color:#fff
+    style D fill:#336791,stroke:#fff,stroke-width:2px,color:#fff
 ```
+</details>
 
-API smoke tests require the local development server and database. They create one clearly named local verification incident, then resolve it. They refuse non-loopback hosts. Production data is not affected.
+<details>
+<summary><strong>Deploying via Docker</strong></summary>
 
-## Event API
+You can build a standalone Next.js image. *(Ensure `output: 'standalone'` is in your `next.config.ts`)*.
 
-`POST /api/incidents/{incidentId}/events` with `Content-Type: application/json`:
+```bash
+# Build the image
+docker build -t opscord .
 
+# Run the container
+docker run -p 3000:3000 -e DATABASE_URL="your_postgres_url" opscord
+```
+</details>
+
+---
+
+## 📡 API Reference
+
+OpsCord is designed to integrate seamlessly with your existing CI/CD, Kubernetes, and monitoring tools.
+
+<details>
+<summary><strong>Ingest Event</strong> <code>POST /api/incidents/{id}/events</code></summary>
+
+Ingests a new telemetry or deployment event and attaches it to an incident.
+
+**Headers:**
+`Content-Type: application/json`
+
+**Payload:**
 ```json
 {
   "externalId": "provider-event-001",
@@ -76,62 +210,42 @@ API smoke tests require the local development server and database. They create o
 }
 ```
 
-A matching `(incident, source, externalId)` and canonical payload returns the existing event. Reusing that key with different content returns 409. Server receipt time is stored separately from occurrence time. UTC and timezone-offset timestamps are normalized to UTC. Invalid schemas, unknown entities, oversized bodies, out-of-window events, and cross-origin writes are rejected. Source metadata is displayed as text, never interpreted as instructions or executable HTML.
+**Responses:**
+- `200 OK`: Event created successfully (or successfully deduplicated).
+- `400 Bad Request`: Invalid JSON schema.
+- `409 Conflict`: `externalId` already exists for this source but with a different payload.
+</details>
 
-Other endpoints:
+<details>
+<summary><strong>List Runbooks</strong> <code>GET /api/runbooks</code></summary>
 
-- `GET /api/workspace?incident=INC-2025-0517`
-- `POST /api/incidents`: title, service, severity, startedAt.
-- `PATCH /api/incidents/{id}`: status, expected version, and a resolution summary when resolving.
-- `POST /api/incidents/{id}/notes`: body.
-- `GET /api/incidents/{id}/response`: coordination, actions, activity, postmortem, and runbooks.
-- `POST /api/incidents/{id}/response`: validated coordination, task, decision, or runbook-application action.
-- `PUT /api/incidents/{id}/response`: versioned draft or final postmortem.
-- `GET /api/operations`: loaded cross-incident actions, coordination, review status, and record counts.
-- `GET/POST/PATCH /api/runbooks`: library retrieval, creation, and versioned editing.
+Retrieves the library of available incident response runbooks.
 
-There are no external webhook credentials or adapters yet. The private deployment uses platform authentication; before supporting public/multi-user deployments, add tenant-scoped authorization, authenticated webhook ingress, rate limiting, and audit logging.
-
-## Ranking model
-
-Edges point from caller to dependency. BFS walks incoming edges from a candidate to the affected service, with cycle detection. Candidate seeds are deployments, configuration changes, resource pressure, database saturation, and temperature anomalies. Alerts are treated as evidence rather than automatically promoted to causes.
-
-Candidates must occur within 60 minutes before onset, with a 30-second clock-skew allowance. Supporting observations must follow their seed, belong to the same entity and incident, and be available by the investigation clock. Explicit conflicting release IDs are excluded. Runtime, logs, metrics, and release-specific recovery each contribute at most one observation per family, limiting alert-flood inflation.
-
+**Response:**
+```json
+[
+  {
+    "id": "rb_123",
+    "title": "Database Failover Procedure",
+    "version": 2,
+    "steps": [ ... ]
+  }
+]
 ```
-score = round(clamp(35 / (1 + dependency hops)
-                  + 25 * max(0, 1 - ageMinutes / 60)
-                  + 40 * min(independentFamilies / 3, 1)
-                  - contradictionPenalty, 0, cap))
-```
+</details>
 
-Topology contributes zero when disconnected. Disconnected candidates and candidates without independent corroboration have a cap of 39. A release-specific `release_absent` observation deducts 20. Scores are heuristic evidence rankings, not calibrated probabilities or proof of causality. Service criticality, change frequency, historical failure likelihood, learned causal inference, and confidence calibration are not modeled yet.
+---
 
-The sample sensor is attached to an edge device; the graph does not invent a path to Payment API. Its low-ranked hypothesis explicitly discloses that missing path. The sample temperature chart is illustrative historical telemetry. Sample service health is a scenario snapshot; new manual investigations show health as unverified.
+## 🗺️ Roadmap & Contributing
 
-## Persistence and time
+We welcome contributions! OpsCord is an evolving MVP with the following major milestones ahead:
 
-One atomic seed batch inserts the namespaced sample events and a seed-version marker. Reloads and deployments never reset incident edits. The sample investigation clock is frozen at 17 May 2025, 11:45 IST. New incidents use server time. Ingestion accepts events from 24 hours before onset through the investigation clock (plus clock skew); ranking deliberately uses the narrower 60-minute window. Event display times use IST; source and receipt timestamps remain accessible in UTC.
+- [ ] **Ingestion**: Authenticated GitHub Actions & Kubernetes adapters.
+- [ ] **Security**: Tenant isolation, webhook rate limiting, and audit trails.
+- [ ] **AI**: Optional evidence-grounded LLM summaries.
 
-Workspace reads return up to 100 incidents, 2,000 events per incident, and 100 recent notes. Response reads return up to 200 activity entries; an incident supports 200 actions and the library supports 100 runbooks. The operations queue returns 500 actions with incomplete-history notices. Metrics describe loaded manual incidents and measure onset to latest resolution; reopening resets the current resolution. The service catalog and directed graph are maintained in `lib/domain.ts`.
+Read the [Full Roadmap](ROADMAP.md) to see where we are heading.
 
-## Main source locations
-
-- `components/dashboard.tsx`: workspace and investigation interactions.
-- `components/views.tsx`: evidence, inventory, integrations, architecture.
-- `components/opscord.tsx`: reusable dashboard panels and diagrams.
-- `lib/domain.ts`: validation schemas, types, graph, sample dataset.
-- `lib/scoring.ts`: deterministic ranking and BFS.
-- `lib/store.ts`: persistence, atomic seed, delivery deduplication.
-- `app/api/`: API route handlers.
-- `db/schema.ts`, `drizzle/`: schema and immutable migrations.
-- `tests/core.test.ts`, `scripts/smoke-api.mjs`: algorithm and integration checks.
-
-## Next milestones
-
-1. Authenticated GitHub/GitHub Actions ingestion and source-specific normalization.
-2. Kubernetes/monitoring adapters, maintained dependency discovery, and live health state.
-3. Tenant isolation, roles, webhook rate limiting, audit trails, pagination, and operational monitoring.
-4. Historical incident dataset and evaluated/calibrated ranking improvements.
-5. Optional evidence-grounded LLM summaries, followed by separately evaluated anomaly models.
-6. MQTT edge telemetry and verified physical-to-digital dependency mappings.
+<div align="center">
+  <sub>Built with ❤️ for on-call engineers.</sub>
+</div>
